@@ -1,0 +1,8 @@
+{
+  "name": "firebaseoffline",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular",
+  "pro_id": "ec042317"
+}
