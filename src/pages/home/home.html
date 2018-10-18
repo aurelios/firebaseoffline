@@ -11,4 +11,36 @@
   <p>
     If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
   </p>
+
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Atividade</ion-label>
+      <ion-select [(ngModel)]="item.atividade" interface="popover">
+        <ion-option value="A">Adubação</ion-option>
+        <ion-option value="P">Pulverização</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Data</ion-label>
+      <ion-datetime displayFormat="DD, MMM, YYYY" pickerFormat="DD, MMM, YYYY" [(ngModel)]="item.data"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>Descrição</ion-label>
+      <ion-input type="text" [(ngModel)]="item.descricao"></ion-input>
+    </ion-item>
+
+    <button ion-button (click)="addItem(item)">Salvar</button>
+  </ion-list>
+
+  <ion-content>
+    <ion-item-group *ngFor="let item of items | async">
+      <!--<ion-item-divider color="light">A</ion-item-divider>!-->
+      <ion-item>
+        <h2>{{ item.data | date : "dd/MM/yyyy"}}</h2>
+        <p>{{ item.atividade }} | {{ item.descricao }}</p>
+      </ion-item>
+    </ion-item-group>
+  </ion-content>
+
 </ion-content>
