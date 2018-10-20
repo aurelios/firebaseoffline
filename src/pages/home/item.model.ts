@@ -1,5 +1,7 @@
-export interface Item { 
+export class Item { 
     atividade: string; 
     descricao : string; 
-    data: Date; 
+    data: Date;
+
+
 }
