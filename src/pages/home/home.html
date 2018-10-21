@@ -1,17 +1,12 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Atividades
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
-
 
   <ion-list>
     <ion-item>
@@ -23,24 +18,29 @@
     </ion-item>
     <ion-item>
       <ion-label>Data</ion-label>
-      <ion-datetime displayFormat="DD, MMM, YYYY" format pickerFormat="DD, MMM, YYYY" [(ngModel)]="item.data"></ion-datetime>
+      <ion-datetime text-center displayFormat="DD, MMM, YYYY" format pickerFormat="DD, MMM, YYYY" [(ngModel)]="item.data"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label fixed>Descrição</ion-label>
-      <ion-input type="text" [(ngModel)]="item.descricao"></ion-input>
+      <ion-input type="text" text-right [(ngModel)]="item.descricao"></ion-input>
     </ion-item>
-
-    <button ion-button (click)="addItem(item)">Salvar</button>
+<br>
+    <button ion-button full icon-start (click)="addItem(item)"><ion-icon name="archive"></ion-icon>Salvar</button>
   </ion-list>
 
-  <ion-content>
-    <ion-item-group *ngFor="let item of items | async">
+  <ion-list>
+    
       <!--<ion-item-divider color="light">A</ion-item-divider>!-->
-      <ion-item>
+      <ion-item icon-right *ngFor="let item of items | async">
+        
         <h2>{{ item.data | date : "dd/MM/yyyy"}}</h2>
         <p>{{ item.atividade }} | {{ item.descricao }}</p>
+       
+        <button ion-button icon-only clear item-end  (click)=removeItem(item)>
+            <ion-icon name="trash" ></ion-icon>
+          </button>
+        
       </ion-item>
-    </ion-item-group>
-  </ion-content>
+  </ion-list>
 
 </ion-content>

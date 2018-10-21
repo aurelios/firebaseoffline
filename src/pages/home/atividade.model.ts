@@ -1,7 +1,8 @@
-export class Item { 
+export class Atividade { 
+    
+    id?:string;
     atividade: string; 
     descricao : string; 
     data: Date;
-
 
 }
