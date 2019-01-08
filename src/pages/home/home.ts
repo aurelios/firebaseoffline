@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { AngularFirestoreCollection, AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Atividade } from './atividade.model';
 import { map } from 'rxjs/operators';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 @Component({
   selector: 'page-home',
@@ -18,7 +19,7 @@ export class HomePage {
 
   item: Atividade = {atividade: 'A', descricao : '', data: new Date().toISOString()};
   constructor(public navCtrl: NavController,private db: AngularFireDatabase,
-    private afs: AngularFirestore) {
+    private afs: AngularFirestore, private localNotifications: LocalNotifications) {
     //this.itemsRef =  db.list('entrys');
     //this.items = this.itemsRef.valueChanges();
 
@@ -37,6 +38,11 @@ export class HomePage {
   addItem(item: Atividade) {
     //this.itemsRef.push(item);
     this.itemsCollection.add(item);
+    this.localNotifications.schedule({
+      text: 'Atividade Adicionada: '+item.descricao,
+      trigger: {at: new Date(new Date().getTime() + 60 * 1000)},
+      led: 'FF0000'
+   });
   }
 
   removeItem(item: Atividade) {

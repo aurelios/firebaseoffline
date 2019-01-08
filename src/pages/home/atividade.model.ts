@@ -3,6 +3,6 @@ export class Atividade {
     id?:string;
     atividade: string; 
     descricao : string; 
-    data: Date;
+    data: string;
 
 }

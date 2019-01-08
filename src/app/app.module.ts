@@ -12,6 +12,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from '../environments/environment';
+import { OneSignal } from '@ionic-native/onesignal';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 @NgModule({
   declarations: [
@@ -34,8 +36,10 @@ import { environment } from '../environments/environment';
   ],
   providers: [
     StatusBar,
-    SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    SplashScreen,    
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    OneSignal,
+    LocalNotifications
   ]
 })
 export class AppModule {}
