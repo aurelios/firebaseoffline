@@ -4,21 +4,35 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
-import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+
+import { MyApp } from './app.component';
+import { HomePage } from '../pages/home/home';
+import { SigninPage } from '../pages/signin/signin';
+import { SigninWithEmailPage } from '../pages/signinwithemail/signinwithemail';
+import { SignupPage } from '../pages/signup/signup';
+import { ResetpasswordPage } from '../pages/resetpassword/resetpassword';
+
 import { environment } from '../environments/environment';
 import { OneSignal } from '@ionic-native/onesignal';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 
+import { AuthService } from '../providers/auth/auth-service';
+
+
+
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    SigninPage,
+    SigninWithEmailPage,
+    SignupPage,
+    ResetpasswordPage
   ],
   imports: [
     BrowserModule,    
@@ -27,17 +41,23 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
     IonicModule.forRoot(MyApp, {monthShortNames: ['Jan', 'Fev', 'Mar','Mai', 'Abr', 'Jun', 'Jul', 'Ago', 'Set' ,'Out', 'Nov', 'Dez' ]}),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    SigninPage,
+    SigninWithEmailPage,
+    SignupPage,
+    ResetpasswordPage
   ],
   providers: [
     StatusBar,
     SplashScreen,    
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthService,
     OneSignal,
     LocalNotifications
   ]

@@ -6,7 +6,8 @@ import { AngularFirestoreCollection, AngularFirestore, AngularFirestoreDocument 
 import { Atividade } from './atividade.model';
 import { map } from 'rxjs/operators';
 import { LocalNotifications } from '@ionic-native/local-notifications';
-
+import { SigninPage } from '../signin/signin';
+import { AuthService } from '../../providers/auth/auth-service';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -19,7 +20,7 @@ export class HomePage {
 
   item: Atividade = {atividade: 'A', descricao : '', data: new Date().toISOString()};
   constructor(public navCtrl: NavController,private db: AngularFireDatabase,
-    private afs: AngularFirestore, private localNotifications: LocalNotifications) {
+    private afs: AngularFirestore, private localNotifications: LocalNotifications, private authService: AuthService) {
     //this.itemsRef =  db.list('entrys');
     //this.items = this.itemsRef.valueChanges();
 
@@ -47,6 +48,16 @@ export class HomePage {
 
   removeItem(item: Atividade) {
     this.afs.doc('entrys/'+item.id).delete();
+  }
+
+  public signOut() {
+    this.authService.signOut()
+      .then(() => {
+        this.navCtrl.parent.parent.setRoot(SigninPage);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
 }

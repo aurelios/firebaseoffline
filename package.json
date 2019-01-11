@@ -43,7 +43,8 @@
     "rxjs": "^6.3.3",
     "rxjs-compat": "^6.3.3",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.26"
+    "zone.js": "0.8.26",
+    "cordova-browser": "~5.0.4"
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.2.0",
@@ -52,7 +53,8 @@
   "description": "An Ionic project",
   "cordova": {
     "platforms": [
-      "android"
+      "android",
+      "browser"
     ],
     "plugins": {
       "cordova-plugin-whitelist": {},
