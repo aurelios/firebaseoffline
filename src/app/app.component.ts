@@ -2,27 +2,27 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { HomePage } from '../pages/home/home';
+import { AtividadePage } from '../pages/atividade/atividade';
 import { OneSignal, OSNotification } from '@ionic-native/onesignal';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 
-import { SigninPage } from '../pages/signin/signin';
+import { SigninWithEmailPage } from '../pages/signinwithemail/signinwithemail';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = HomePage;
+  rootPage:any = AtividadePage;
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
     private _oneSignal: OneSignal, private localNotifications: LocalNotifications,
     afAuth: AngularFireAuth) {
 
     afAuth.authState.subscribe(user => {
       if (user && afAuth.auth.currentUser.emailVerified) {
-        this.rootPage = HomePage;
+        this.rootPage = AtividadePage;
       } else {
-        this.rootPage = SigninPage;
+        this.rootPage = SigninWithEmailPage;
       }
     });
 

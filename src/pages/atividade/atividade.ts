@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component , ViewChild} from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireList  } from '@angular/fire/database';
 import { Observable } from 'rxjs';
@@ -8,11 +8,13 @@ import { map } from 'rxjs/operators';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { SigninPage } from '../signin/signin';
 import { AuthService } from '../../providers/auth/auth-service';
+import { NgForm } from '@angular/forms';
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-atividade',
+  templateUrl: 'atividade.html'
 })
-export class HomePage {
+export class AtividadePage {
+  @ViewChild('form') form: NgForm;
   //itemsRef: AngularFireList<Atividade>;
 
   items: Observable<Atividade[]>;
@@ -25,25 +27,25 @@ export class HomePage {
     //this.items = this.itemsRef.valueChanges();
 
 
-    this.itemsCollection = afs.collection<Atividade>('entrys', ref => ref.orderBy('createdAt', 'desc'));
-    this.items = afs.collection('entrys').snapshotChanges().pipe(
+    this.itemsCollection = afs.collection<Atividade>('entrys', ref => ref.orderBy('data', 'desc'));
+    this.items = afs.collection('entrys', ref => ref.orderBy('data', 'desc')).snapshotChanges().pipe(
       map(changes => changes.map(a => {
         const data = a.payload.doc.data() as Atividade;
         data.id = a.payload.doc.id;
         return data;
-      })));
-
-    
-  
+      })));  
   }
+
   addItem(item: Atividade) {
-    //this.itemsRef.push(item);
-    this.itemsCollection.add(item);
-    this.localNotifications.schedule({
-      text: 'Atividade Adicionada: '+item.descricao,
-      trigger: {at: new Date(new Date().getTime() + 60 * 1000)},
-      led: 'FF0000'
-   });
+    if (this.form.form.valid) {
+      //this.itemsRef.push(item);
+      this.itemsCollection.add(item);
+      this.localNotifications.schedule({
+        text: 'Atividade Adicionada: '+item.descricao,
+        trigger: {at: new Date(new Date().getTime() + 60 * 1000)},
+        led: 'FF0000'
+      });
+    }
   }
 
   removeItem(item: Atividade) {

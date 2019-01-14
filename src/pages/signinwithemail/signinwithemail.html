@@ -35,8 +35,16 @@
     </button>
   </form>
 
+  <button ion-button block clear (click)="createAccount()">
+    Criar conta
+  </button>
+
   <button ion-button block clear (click)="resetPassword()">
     Esqueci minha senha
   </button>
+
+  <ion-item *ngIf="user.needEmailVerification" class="text-danger">
+    É necessário verificar o email.
+  </ion-item>
 
 </ion-content>

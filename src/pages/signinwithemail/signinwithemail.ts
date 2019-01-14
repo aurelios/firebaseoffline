@@ -3,8 +3,9 @@ import { IonicPage, NavController, ToastController } from 'ionic-angular';
 import { NgForm } from '@angular/forms';
 import { User } from '../../providers/auth/user';
 import { AuthService } from '../../providers/auth/auth-service';
-import { HomePage } from '../home/home';
+import { AtividadePage } from '../atividade/atividade';
 import { ResetpasswordPage } from '../resetpassword/resetpassword';
+import { SignupPage } from '../signup/signup';
 
 @IonicPage()
 @Component({
@@ -25,12 +26,18 @@ export class SigninWithEmailPage {
     this.navCtrl.push(ResetpasswordPage);
   }
 
+  createAccount() {
+    this.navCtrl.push(SignupPage);
+  }
+
   signIn() {
     if (this.form.form.valid) {
       this.authService.signIn(this.user)
-        .then((user) => {
+        .then((user) => {          
           if(user.user.emailVerified){
-            this.navCtrl.setRoot(HomePage);
+            this.navCtrl.setRoot(AtividadePage);
+          } else {
+            this.user.needEmailVerification = true;
           }
         })
         .catch((error: any) => {
@@ -43,6 +50,8 @@ export class SigninWithEmailPage {
             toast.setMessage('O usuário não foi encontrado.');
           } else if (error.code == 'auth/wrong-password') {
             toast.setMessage('A senha digitada não é valida.');
+          } else {
+            toast.setMessage(error.code);
           }
           toast.present();
         });

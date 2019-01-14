@@ -11,7 +11,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
+import { AtividadePage } from '../pages/atividade/atividade';
 import { SigninPage } from '../pages/signin/signin';
 import { SigninWithEmailPage } from '../pages/signinwithemail/signinwithemail';
 import { SignupPage } from '../pages/signup/signup';
@@ -28,7 +28,7 @@ import { AuthService } from '../providers/auth/auth-service';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
+    AtividadePage,
     SigninPage,
     SigninWithEmailPage,
     SignupPage,
@@ -47,7 +47,7 @@ import { AuthService } from '../providers/auth/auth-service';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
+    AtividadePage,
     SigninPage,
     SigninWithEmailPage,
     SignupPage,
