@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AtividadePage } from '../pages/atividade/atividade';
 import { OneSignal, OSNotification } from '@ionic-native/onesignal';
 import { LocalNotifications } from '@ionic-native/local-notifications';
+import { HomePage } from '../pages/home/home';
 
 import { SigninWithEmailPage } from '../pages/signinwithemail/signinwithemail';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -13,14 +14,20 @@ import { AngularFireAuth } from '@angular/fire/auth';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = AtividadePage;
+  rootPage:any = HomePage;
+  @ViewChild(Nav) public nav: Nav;
+  public paginas = [    
+    {titulo: 'Atividade', pagina: AtividadePage, icone: 'calendar'}
+  ];
+
+
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
     private _oneSignal: OneSignal, private localNotifications: LocalNotifications,
     afAuth: AngularFireAuth) {
 
     afAuth.authState.subscribe(user => {
       if (user && afAuth.auth.currentUser.emailVerified) {
-        this.rootPage = AtividadePage;
+        this.rootPage = HomePage;
       } else {
         this.rootPage = SigninWithEmailPage;
       }
@@ -49,5 +56,9 @@ export class MyApp {
 
 
     });
+  }
+
+  irParaPagina(pagina){
+    this.nav.push(pagina);
   }
 }

@@ -16,6 +16,7 @@ import { SigninPage } from '../pages/signin/signin';
 import { SigninWithEmailPage } from '../pages/signinwithemail/signinwithemail';
 import { SignupPage } from '../pages/signup/signup';
 import { ResetpasswordPage } from '../pages/resetpassword/resetpassword';
+import { HomePage } from '../pages/home/home';
 
 import { environment } from '../environments/environment';
 import { OneSignal } from '@ionic-native/onesignal';
@@ -32,7 +33,8 @@ import { AuthService } from '../providers/auth/auth-service';
     SigninPage,
     SigninWithEmailPage,
     SignupPage,
-    ResetpasswordPage
+    ResetpasswordPage,
+    HomePage
   ],
   imports: [
     BrowserModule,    
@@ -51,7 +53,8 @@ import { AuthService } from '../providers/auth/auth-service';
     SigninPage,
     SigninWithEmailPage,
     SignupPage,
-    ResetpasswordPage
+    ResetpasswordPage,
+    HomePage
   ],
   providers: [
     StatusBar,

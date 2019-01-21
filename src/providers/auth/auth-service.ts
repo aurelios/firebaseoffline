@@ -30,7 +30,7 @@ export class AuthService {
       
   
 
-  signIn(user: User) {
+  signIn(user: User) {    
     return this.angularFireAuth.auth.signInWithEmailAndPassword(user.email, user.password);
   }
 
@@ -98,5 +98,9 @@ export class AuthService {
 
   resetPassword(email: string) {
     return this.angularFireAuth.auth.sendPasswordResetEmail(email);
+  }
+
+  getUser(){
+    return this.angularFireAuth.user;
   }
 }

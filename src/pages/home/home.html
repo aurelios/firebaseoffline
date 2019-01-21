@@ -1,0 +1,46 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+
+    <ion-card>       
+        <ion-card-header>
+            Explore Nearby
+        </ion-card-header>
+        <ion-card-content>
+            <ion-row>
+                <ion-col center text-center>               
+                    <h6>Ultima</h6>
+                    <h2 style="color: #666;"> {{ adubacao?.data | date : "dd/MM/yyyy"}}</h2>                  
+                </ion-col>
+                <ion-col center text-center>                  
+                    <h6>Próxima</h6>
+                    <h2 style="color: #666;">{{ (lembreteAdubacao | async )?.data | date : "dd/MM/yyyy"}}</h2>                  
+                </ion-col>               
+              </ion-row>
+        </ion-card-content>    
+       
+      
+      </ion-card>
+
+
+  <!-- <ion-item icon-right *ngFor="let item of pulverizacao | async">
+    <ion-card>
+        <ion-card-header>
+          Header
+        </ion-card-header>
+        <ion-card-content>
+            {{ item.data | date : "dd/MM/yyyy"}}
+        </ion-card-content>
+      </ion-card>
+  </ion-item>-->
+</ion-content>

@@ -3,9 +3,11 @@ import { IonicPage, NavController, ToastController } from 'ionic-angular';
 import { NgForm } from '@angular/forms';
 import { User } from '../../providers/auth/user';
 import { AuthService } from '../../providers/auth/auth-service';
-import { AtividadePage } from '../atividade/atividade';
 import { ResetpasswordPage } from '../resetpassword/resetpassword';
 import { SignupPage } from '../signup/signup';
+import { AtividadePage } from '../atividade/atividade';
+import { HomePage } from '../home/home';
+
 
 @IonicPage()
 @Component({
@@ -19,7 +21,8 @@ export class SigninWithEmailPage {
   constructor(
     public navCtrl: NavController,
     private toastCtrl: ToastController,
-    private authService: AuthService) {
+    private authService: AuthService
+    ) {
   }
 
   resetPassword() {
@@ -34,8 +37,8 @@ export class SigninWithEmailPage {
     if (this.form.form.valid) {
       this.authService.signIn(this.user)
         .then((user) => {          
-          if(user.user.emailVerified){
-            this.navCtrl.setRoot(AtividadePage);
+          if(user.user.emailVerified){       
+            this.navCtrl.setRoot(HomePage);
           } else {
             this.user.needEmailVerification = true;
           }
