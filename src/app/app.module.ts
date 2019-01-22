@@ -23,6 +23,7 @@ import { OneSignal } from '@ionic-native/onesignal';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { AuthService } from '../providers/auth/auth-service';
+import { LembretePage } from '../pages/lembrete/lembrete';
 
 
 
@@ -34,7 +35,9 @@ import { AuthService } from '../providers/auth/auth-service';
     SigninWithEmailPage,
     SignupPage,
     ResetpasswordPage,
-    HomePage
+    HomePage,
+    LembretePage
+
   ],
   imports: [
     BrowserModule,    
@@ -54,7 +57,8 @@ import { AuthService } from '../providers/auth/auth-service';
     SigninWithEmailPage,
     SignupPage,
     ResetpasswordPage,
-    HomePage
+    HomePage,
+    LembretePage
   ],
   providers: [
     StatusBar,

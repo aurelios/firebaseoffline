@@ -13,29 +13,28 @@
   
 
   <form #form="ngForm" novalidate>
-  <ion-list>
-    <ion-item>
-      <ion-label>Atividade</ion-label>
-      <ion-select [(ngModel)]="item.atividade" interface="popover" name="atividade" #atividade="ngModel" required>
-        <ion-option value="A">Adubação</ion-option>
-        <ion-option value="P">Pulverização</ion-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label>Data</ion-label>
-      <ion-datetime text-center displayFormat="DD, MMM, YYYY" format pickerFormat="DD, MMM, YYYY" [(ngModel)]="item.data" name="data" #data="ngModel" required></ion-datetime>
-    </ion-item>   
-    <ion-item>
-      <ion-label fixed>Descrição</ion-label>
-      <ion-input type="text" name="descricao" text-right [(ngModel)]="item.descricao" #descricao="ngModel" required></ion-input>
-    </ion-item>
-    <ion-item *ngIf="descricao.errors && (descricao.dirty || descricao.touched)" class="text-danger">
-      Descrição é obrigatório
-    </ion-item>
-<br>
-    <button ion-button full icon-start (click)="addItem(item)"><ion-icon name="archive"></ion-icon>Salvar</button>
-  </ion-list>
-  
+    <ion-list>
+      <ion-item>
+        <ion-label>Atividade</ion-label>
+        <ion-select [(ngModel)]="item.atividade" interface="popover" name="atividade" #atividade="ngModel" required>
+          <ion-option value="A">Adubação</ion-option>
+          <ion-option value="P">Pulverização</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Data</ion-label>
+        <ion-datetime text-center displayFormat="DD, MMM, YYYY" format pickerFormat="DD, MMM, YYYY" [(ngModel)]="item.data" name="data" #data="ngModel" required></ion-datetime>
+      </ion-item>   
+      <ion-item>
+        <ion-label fixed>Descrição</ion-label>
+        <ion-input type="text" name="descricao" text-right [(ngModel)]="item.descricao" #descricao="ngModel" required></ion-input>
+      </ion-item>
+      <ion-item *ngIf="descricao.errors && (descricao.dirty || descricao.touched)" class="text-danger">
+        Descrição é obrigatório
+      </ion-item>
+      <br>
+      <button ion-button full icon-start (click)="addItem(item)"><ion-icon name="archive"></ion-icon>Salvar</button>
+    </ion-list>  
   </form>
 
   

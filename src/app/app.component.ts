@@ -9,6 +9,7 @@ import { HomePage } from '../pages/home/home';
 
 import { SigninWithEmailPage } from '../pages/signinwithemail/signinwithemail';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { LembretePage } from '../pages/lembrete/lembrete';
 
 @Component({
   templateUrl: 'app.html'
@@ -17,7 +18,8 @@ export class MyApp {
   rootPage:any = HomePage;
   @ViewChild(Nav) public nav: Nav;
   public paginas = [    
-    {titulo: 'Atividade', pagina: AtividadePage, icone: 'calendar'}
+    {titulo: 'Atividade', pagina: AtividadePage, icone: 'calendar'},
+    {titulo: 'Lembrete', pagina: LembretePage, icone: 'calendar'}
   ];
 
 

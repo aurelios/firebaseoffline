@@ -1,12 +1,26 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>lembrete</ion-title>
+    <ion-title>Lembrete</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+  <form #form="ngForm" novalidate>
+      <ion-list *ngFor="let item of items | async">
+        <ion-item>
+          <ion-label>Descrição do Lembrete</ion-label>
+          <ion-input type="text" name="nmLembrete" text-right [(ngModel)]="item.nmLembrete" #descricao="ngModel" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Quantidade Dias Aviso</ion-label>
+          <ion-input type="text" name="qtdDiasAviso" text-right [(ngModel)]="item.qtdDiasAviso" #descricao="ngModel" required></ion-input>
+        </ion-item>
+      </ion-list>
+      <button ion-button full icon-start (click)="salvar(item)"><ion-icon name="archive"></ion-icon>Salvar</button>
+    </form>
 
 </ion-content>
