@@ -1,8 +1,7 @@
 export class Lembrete { 
     
     id?:string;
-    data: string;
-    nmLembrete: string;
+    atividade: string;
     qtdDiasAviso: Number;
 
 }

@@ -24,6 +24,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { AuthService } from '../providers/auth/auth-service';
 import { LembretePage } from '../pages/lembrete/lembrete';
+import { LembreteCreatePage } from '../pages/lembrete-create/lembrete-create';
 
 
 
@@ -36,7 +37,8 @@ import { LembretePage } from '../pages/lembrete/lembrete';
     SignupPage,
     ResetpasswordPage,
     HomePage,
-    LembretePage
+    LembretePage,
+    LembreteCreatePage
 
   ],
   imports: [
@@ -58,7 +60,8 @@ import { LembretePage } from '../pages/lembrete/lembrete';
     SignupPage,
     ResetpasswordPage,
     HomePage,
-    LembretePage
+    LembretePage,
+    LembreteCreatePage
   ],
   providers: [
     StatusBar,

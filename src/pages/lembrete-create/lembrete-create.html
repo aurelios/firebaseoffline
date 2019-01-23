@@ -1,0 +1,26 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{tittle}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #form="ngForm" novalidate>    
+    <ion-item>
+      <ion-label>Atividade</ion-label>
+      <ion-select [(ngModel)]="lembrete.atividade" interface="popover" name="atividade" #atividade="ngModel" required>
+          <ion-option value="A">Adubação</ion-option>
+          <ion-option value="P">Pulverização</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Quantidade Dias Aviso</ion-label>
+      <ion-input type="text" name="qtdDiasAviso" text-right [(ngModel)]="lembrete.qtdDiasAviso" #descricao="ngModel" required></ion-input>
+    </ion-item>
+    <br/>
+    <button ion-button full icon-start (click)="salvar(item)"><ion-icon name="archive"></ion-icon>Salvar</button>
+  </form>
+</ion-content>

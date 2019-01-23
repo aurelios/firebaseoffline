@@ -18,7 +18,7 @@ export class MyApp {
   rootPage:any = HomePage;
   @ViewChild(Nav) public nav: Nav;
   public paginas = [    
-    {titulo: 'Atividade', pagina: AtividadePage, icone: 'calendar'},
+    {titulo: 'Atividade', pagina: AtividadePage, icone: 'hammer'},
     {titulo: 'Lembrete', pagina: LembretePage, icone: 'calendar'}
   ];
 

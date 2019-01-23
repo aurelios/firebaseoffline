@@ -1,5 +1,5 @@
 import { Component , ViewChild} from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { Atividade } from './atividade.model';
@@ -21,9 +21,19 @@ export class AtividadePage {
   constructor(public navCtrl: NavController,
     private afs: AngularFirestore, 
     private localNotifications: LocalNotifications, 
-    private authService: AuthService) {
+    private authService: AuthService,
+    private _loadingCtrl: LoadingController) { 
+   
+  }
 
-    authService.getUser().subscribe(
+  ionViewDidLoad() {
+    let loading = this._loadingCtrl.create({
+      content: 'Carregando...'
+    });
+
+    loading.present();
+
+    this.authService.getUser().subscribe(
       user => {
         this.itemsCollection = this.afs.collection(user.email)
         .doc("entrys").collection<Atividade>("atividades", ref => ref.orderBy('data', 'desc'));    
@@ -32,8 +42,13 @@ export class AtividadePage {
           map(changes => changes.map(a => {
             const data = a.payload.doc.data() as Atividade;
             data.id = a.payload.doc.id;
+            
             return data;
-          })));  
+          })
+        )); 
+
+        loading.dismiss();
+         
     });
   }
 

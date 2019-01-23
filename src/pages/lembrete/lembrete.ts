@@ -6,6 +6,7 @@ import { Lembrete } from './lembrete.model';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { NgForm } from '@angular/forms';
+import { LembreteCreatePage } from '../lembrete-create/lembrete-create';
 
 @IonicPage()
 @Component({
@@ -25,10 +26,22 @@ export class LembretePage {
       authService.getUser().subscribe(
         user => {
           this.itemsCollection = this.afs.collection(user.email)
-          .doc("entrys").collection<Lembrete>("lembrete", ref => ref.orderBy('nmLembrete', 'desc'));
+          .doc("entrys").collection<Lembrete>("lembrete", ref => ref.orderBy('atividade', 'desc'));
 
           this.items = this.itemsCollection.valueChanges();  
       });
+  }
+
+  removeItem(item: Lembrete) {
+    this.itemsCollection.doc(item.id).delete();
+  }
+
+  openEditItem(item: Lembrete) {
+    this.navCtrl.push(LembreteCreatePage, {lembrete: item, tittle:'Alterar Lembrete'});
+  }
+
+  openNewItem() {
+    this.navCtrl.push(LembreteCreatePage,{tittle:'Novo Lembrete'});
   }
 
   salvar(item: Lembrete) {
@@ -37,8 +50,7 @@ export class LembretePage {
 
       
         const id = (item.id == undefined ? this.afs.createId() :  item.id);       
-        this.itemsCollection.doc(id).set(item);
-      
+        this.itemsCollection.doc(id).set(item);      
 
     }
   }
