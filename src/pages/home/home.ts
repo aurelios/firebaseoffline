@@ -13,7 +13,7 @@ import { Lembrete } from '../lembrete/lembrete.model';
 })
 export class HomePage {
   adubacoes: Observable<Atividade[]>;
-  lembreteAdubacao:  Observable<Lembrete>;
+  lembreteAdubacao:  Lembrete;
   adubacao:  Atividade;
   pulverizacao: Observable<Atividade[]>;
 
@@ -24,9 +24,15 @@ export class HomePage {
     authService.getUser().subscribe(
       user => {
 
-        this.lembreteAdubacao = afs.collection(user.email)
-        .doc("entrys").collection("lembrete")
-        .doc<Lembrete>("adubacao").valueChanges();        
+        afs.collection(user.email)
+        .doc("entrys").collection("lembrete", ref => ref.where('atividade', '==', 'A')).snapshotChanges().pipe(
+          map(changes => changes.map(a => {
+            const data = a.payload.doc.data() as Lembrete;
+            data.id = a.payload.doc.id;
+            return data;
+          }))).subscribe(ref => this.lembreteAdubacao = ref[0] );  
+
+         
 
 
         this.adubacoes = this.afs.collection(user.email)

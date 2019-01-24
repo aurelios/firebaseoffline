@@ -15,7 +15,7 @@ import { NgForm } from '@angular/forms';
 export class AtividadePage {
   @ViewChild('form') form: NgForm;
   items: Observable<Atividade[]>;  
-  item: Atividade = {atividade: 'A', descricao : '', data: new Date().toISOString()};  
+  item: Atividade = {atividade: 'A', descricao : '', data: null};  
   private itemsCollection: AngularFirestoreCollection<Atividade>;
   
   constructor(public navCtrl: NavController,

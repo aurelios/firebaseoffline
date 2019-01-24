@@ -28,7 +28,13 @@ export class LembretePage {
           this.itemsCollection = this.afs.collection(user.email)
           .doc("entrys").collection<Lembrete>("lembrete", ref => ref.orderBy('atividade', 'desc'));
 
-          this.items = this.itemsCollection.valueChanges();  
+          this.items = this.itemsCollection.snapshotChanges().pipe(
+            map(changes => changes.map(a => {
+              const data = a.payload.doc.data() as Lembrete;
+              data.id = a.payload.doc.id;              
+              return data;
+            })
+          )); 
       });
   }
 
@@ -46,9 +52,7 @@ export class LembretePage {
 
   salvar(item: Lembrete) {
     if (this.form.form.valid) {
-      //this.itemsRef.push(item);
-
-      
+      //this.itemsRef.push(item);      
         const id = (item.id == undefined ? this.afs.createId() :  item.id);       
         this.itemsCollection.doc(id).set(item);      
 
