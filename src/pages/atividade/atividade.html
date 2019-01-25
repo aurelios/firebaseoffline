@@ -43,7 +43,7 @@
       <!--<ion-item-divider color="light">A</ion-item-divider>!-->
       <ion-item icon-right *ngFor="let item of items | async">
         
-        <h2>{{ item.data.seconds * 1000 | date  }}</h2>
+        <h2>{{ item.data | date  }}</h2>
         <p>{{ item.atividade == 'A' ? 'Adubação' : 'Pulverização' }} | {{ item.descricao }}</p>
        
         <button ion-button icon-only clear item-end  (click)=removeItem(item)>

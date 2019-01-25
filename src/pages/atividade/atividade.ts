@@ -15,7 +15,7 @@ import { NgForm } from '@angular/forms';
 export class AtividadePage {
   @ViewChild('form') form: NgForm;
   items: Observable<Atividade[]>;  
-  item: Atividade = {atividade: 'A', descricao : '', data: null};  
+  item: Atividade = {atividade: 'A', descricao : '', data: new Date().toISOString()};  
   private itemsCollection: AngularFirestoreCollection<Atividade>;
   
   constructor(public navCtrl: NavController,
@@ -36,7 +36,7 @@ export class AtividadePage {
     this.authService.getUser().subscribe(
       user => {
         this.itemsCollection = this.afs.collection(user.email)
-        .doc("entrys").collection<Atividade>("atividades", ref => ref.orderBy('data', 'desc'));    
+        .doc("entrys").collection<Atividade>("atividades", ref => ref.orderBy('data', 'desc'));
       
         this.items = this.itemsCollection.snapshotChanges().pipe(
           map(changes => changes.map(a => {
@@ -45,7 +45,7 @@ export class AtividadePage {
             
             return data;
           })
-        )); 
+        ));
 
         loading.dismiss();
          

@@ -12,25 +12,24 @@
 <ion-content padding>
 
 
-    <ion-card>       
+
+    <ion-card *ngFor="let item of homeItems">       
         <ion-card-header>
             Explore Nearby
         </ion-card-header>
         <ion-card-content>
             <ion-row>
                 <ion-col center text-center>               
-                    <h6>Ultima</h6>
-                    <h2 style="color: #666;"> {{ adubacao?.data | date : "dd/MM/yyyy"}}</h2>                  
+                    <h6>Última</h6>
+                    <h2 style="color: #666;"> {{ item?.dtUltAtividade | date : "dd/MM/yyyy" }}</h2>                  
                 </ion-col>
                 <ion-col center text-center>                  
                     <h6>Próxima</h6>
-                    <h2 style="color: #666;">{{ lembreteAdubacao?.qtdDiasAviso }}</h2>                  
-                </ion-col>               
-              </ion-row>
-        </ion-card-content>    
-       
-      
-      </ion-card>
+                    <h2 style="color: #666;">{{ item?.dtProxAtividade  | date : "dd/MM/yyyy"  }}</h2>                  
+                </ion-col>
+                </ion-row>
+        </ion-card-content>
+        </ion-card>
 
 
   <!-- <ion-item icon-right *ngFor="let item of pulverizacao | async">

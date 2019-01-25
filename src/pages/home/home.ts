@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../../providers/auth/auth-service';
 import { Lembrete } from '../lembrete/lembrete.model';
+import { Home } from './home.model';
 
 @Component({
   selector: 'page-home',
@@ -17,6 +18,8 @@ export class HomePage {
   adubacao:  Atividade;
   pulverizacao: Observable<Atividade[]>;
 
+  homeItems: Home[] = [];
+
   constructor(public navCtrl: NavController,
     private afs: AngularFirestore,
     private authService: AuthService) {
@@ -24,19 +27,19 @@ export class HomePage {
     authService.getUser().subscribe(
       user => {
 
+        const item = new Home();
+
         afs.collection(user.email)
         .doc("entrys").collection("lembrete", ref => ref.where('atividade', '==', 'A')).snapshotChanges().pipe(
           map(changes => changes.map(a => {
             const data = a.payload.doc.data() as Lembrete;
             data.id = a.payload.doc.id;
             return data;
-          }))).subscribe(ref => this.lembreteAdubacao = ref[0] );  
-
-         
+          }))).subscribe(ref => {this.lembreteAdubacao = ref[0]; item.atividade = 'A' ; item.qtdDiasProxAtividade = ref[0].qtdDiasAviso });         
 
 
         this.adubacoes = this.afs.collection(user.email)
-        .doc("entrys").collection<Atividade>("atividades", ref => ref.where('atividade', '==', 'P').
+        .doc("entrys").collection<Atividade>("atividades", ref => ref.where('atividade', '==', 'A').
           orderBy('data', 'desc').
           limit(1))
         .snapshotChanges().pipe(
@@ -46,7 +49,15 @@ export class HomePage {
             return data;
           })));  
 
-        this.adubacoes.subscribe(ref => this.adubacao = ref[0]);
+        this.adubacoes.subscribe(ref => { 
+          this.adubacao = ref[0]; 
+          item.dtUltAtividade = ref[0].data ; 
+          const date = new Date(ref[0].data);
+          date.setDate(date.getDate() + item.qtdDiasProxAtividade.valueOf());
+          item.dtProxAtividade =  date.toISOString() ;
+        });
+
+        this.homeItems.push(item);
     
       });
 
