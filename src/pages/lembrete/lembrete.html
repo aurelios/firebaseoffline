@@ -5,6 +5,24 @@
 </ion-header>  
   
   <ion-content padding>
+      <form #form="ngForm" novalidate>
+      <ion-list>
+          <ion-item >    
+            Lembrar próxima <b>Adubação</b> em  
+            <input type="number" style="width:70px" [value]="(adubacao | async)?.qtdDiasAviso" name="qtdDiasAviso" placeholder="Qtd. Dias" />
+            dias.   
+          </ion-item>     
+          <ion-item >
+              Lembrar próxima <b>Pulverização</b> em  
+              <input type="number" style="width:70px" [value]="(pulverizacao | async)?.qtdDiasAviso" name="qtdDiasAviso" placeholder="Qtd. Dias" />
+              dias.               
+           </ion-item>   
+        </ion-list>
+        <button ion-button full icon-start (click)="salvar()"><ion-icon name="archive"></ion-icon>Salvar</button>
+
+   
+
+
   
       <ion-list>
         <ion-item *ngFor="let item of items | async">
@@ -23,6 +41,8 @@
       <ion-fab bottom center>
           <button ion-fab (click)="openNewItem()"><ion-icon name="add"></ion-icon></button>
       </ion-fab>
+
+      </form>
 
   </ion-content>
   

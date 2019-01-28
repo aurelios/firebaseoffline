@@ -11,25 +11,27 @@
 
 <ion-content padding>
 
-
-
     <ion-card *ngFor="let item of homeItems">       
-        <ion-card-header>
-            Explore Nearby
+        <ion-card-header text-center bold>               
+           {{item.atividade == 'A' ? 'Adubação' : 'Pulverização'}}         
         </ion-card-header>
-        <ion-card-content>
-            <ion-row>
-                <ion-col center text-center>               
-                    <h6>Última</h6>
-                    <h2 style="color: #666;"> {{ item?.dtUltAtividade | date : "dd/MM/yyyy" }}</h2>                  
-                </ion-col>
-                <ion-col center text-center>                  
-                    <h6>Próxima</h6>
-                    <h2 style="color: #666;">{{ item?.dtProxAtividade  | date : "dd/MM/yyyy"  }}</h2>                  
-                </ion-col>
-                </ion-row>
-        </ion-card-content>
-        </ion-card>
+        <ion-list class="list-ios">
+            <ion-item>
+                <ion-card-content>
+                    <ion-row>
+                        <ion-col center text-center>               
+                            <h6>Última</h6>
+                            <h2 style="color: #666;"> {{ item?.dtUltAtividade | date : "dd/MM/yyyy" }}</h2>                  
+                        </ion-col>
+                        <ion-col center text-center>                  
+                            <h6>Próxima</h6>
+                            <h2 style="color: #666;">{{ item?.dtProxAtividade  | date : "dd/MM/yyyy"  }}</h2>                  
+                        </ion-col>
+                        </ion-row>
+                </ion-card-content>
+            </ion-item>
+        </ion-list>
+    </ion-card>
 
 
   <!-- <ion-item icon-right *ngFor="let item of pulverizacao | async">

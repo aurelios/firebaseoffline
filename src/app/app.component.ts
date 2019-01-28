@@ -10,12 +10,14 @@ import { HomePage } from '../pages/home/home';
 import { SigninWithEmailPage } from '../pages/signinwithemail/signinwithemail';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { LembretePage } from '../pages/lembrete/lembrete';
+import { SigninPage } from '../pages/signin/signin';
+import { AuthService } from '../providers/auth/auth-service';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = HomePage;
+  rootPage:any;
   @ViewChild(Nav) public nav: Nav;
   public paginas = [    
     {titulo: 'Atividade', pagina: AtividadePage, icone: 'hammer'},
@@ -25,7 +27,7 @@ export class MyApp {
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
     private _oneSignal: OneSignal, private localNotifications: LocalNotifications,
-    afAuth: AngularFireAuth) {
+    afAuth: AngularFireAuth, private authService: AuthService) {
 
     afAuth.authState.subscribe(user => {
       if (user && afAuth.auth.currentUser.emailVerified) {
@@ -62,5 +64,15 @@ export class MyApp {
 
   irParaPagina(pagina){
     this.nav.push(pagina);
+  }
+
+  public signOut() {
+    this.authService.signOut()
+      .then(() => {
+        this.rootPage = SigninPage;
+        //this.navCtrl.parent.parent.setRoot(SigninPage);
+      }).catch((error) => {
+        console.error(error);
+      });
   }
 }

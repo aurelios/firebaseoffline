@@ -15,7 +15,7 @@ import { NgForm } from '@angular/forms';
 export class AtividadePage {
   @ViewChild('form') form: NgForm;
   items: Observable<Atividade[]>;  
-  item: Atividade = {atividade: 'A', descricao : '', data: new Date().toISOString()};  
+  item: Atividade = {atividade: 'A', descricao : '', data: new Date().toISOString()};
   private itemsCollection: AngularFirestoreCollection<Atividade>;
   
   constructor(public navCtrl: NavController,
@@ -67,15 +67,5 @@ export class AtividadePage {
 
   removeItem(item: Atividade) {
     this.itemsCollection.doc(item.id).delete();
-  }
-
-  public signOut() {
-    this.authService.signOut()
-      .then(() => {
-        this.navCtrl.parent.parent.setRoot(SigninPage);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
   }
 }

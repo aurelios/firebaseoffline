@@ -4,4 +4,9 @@ export class Lembrete {
     atividade: string;
     qtdDiasAviso: Number;
 
+    constructor(atividade: string, qtdDiasAviso: Number){
+        this.atividade = atividade;
+        this.qtdDiasAviso = qtdDiasAviso;
+    }
+
 }

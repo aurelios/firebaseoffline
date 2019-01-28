@@ -19,12 +19,23 @@ export class LembretePage {
   items: Observable<Lembrete[]>;
   private itemsCollection: AngularFirestoreCollection<Lembrete>;
 
+  adubacao: Observable<Lembrete>;// = {atividade:'A', qtdDiasAviso:null};
+  pulverizacao: Observable<Lembrete>; //= {atividade:'P', qtdDiasAviso:null}
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private afs: AngularFirestore,
     private authService: AuthService) {
 
+
+
+
       authService.getUser().subscribe(
         user => {
+          this.adubacao = this.afs.collection(user.email).doc("entrys").collection("lembrete").doc<Lembrete>("adubacao").valueChanges();
+
+          this.pulverizacao = this.afs.collection(user.email).doc("entrys").collection("lembrete").doc<Lembrete>("pulverizacao").valueChanges();
+         
+
           this.itemsCollection = this.afs.collection(user.email)
           .doc("entrys").collection<Lembrete>("lembrete", ref => ref.orderBy('atividade', 'desc'));
 
@@ -50,11 +61,33 @@ export class LembretePage {
     this.navCtrl.push(LembreteCreatePage,{tittle:'Novo Lembrete'});
   }
 
-  salvar(item: Lembrete) {
+  /*salvar(item: Lembrete) {
     if (this.form.form.valid) {
       //this.itemsRef.push(item);      
         const id = (item.id == undefined ? this.afs.createId() :  item.id);       
         this.itemsCollection.doc(id).set(item);      
+
+    }
+  }*/
+
+  salvar() {
+    if (this.form.form.valid) {
+
+
+      this.authService.getUser().subscribe(
+        user => {
+
+          this.adubacao.subscribe(value => {            
+            this.afs.collection(user.email).doc("entrys").collection<Lembrete>("lembrete").doc("adubacao").set(value);
+          })
+
+          this.pulverizacao.subscribe(value => {            
+            this.afs.collection(user.email).doc("entrys").collection<Lembrete>("lembrete").doc("pulverizacao").set(value);
+          })
+
+      });
+
+
 
     }
   }

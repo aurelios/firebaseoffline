@@ -5,5 +5,9 @@
             {{pagina.titulo}}
         </button>
     </ion-list>
+    <button ion-button full icon-start color="primary" clear (click)="signOut()">
+        <ion-icon name="log-out"></ion-icon> Sair
+    </button>
+
 </ion-menu>
 <ion-nav id="nav" [root]="rootPage" #conteudo swipeBackEnabled="false"></ion-nav>
