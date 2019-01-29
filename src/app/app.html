@@ -1,13 +1,22 @@
-<ion-menu [content]="conteudo">
-    <ion-list>
-        <button ion-item menuClose *ngFor="let pagina of paginas" (click)="irParaPagina(pagina.pagina)">
-            <ion-icon [name]="pagina.icone" item-left></ion-icon>
-            {{pagina.titulo}}
-        </button>
-    </ion-list>
-    <button ion-button full icon-start color="primary" clear (click)="signOut()">
-        <ion-icon name="log-out"></ion-icon> Sair
-    </button>
+<ion-menu [content]="conteudo" *ngIf="usuarioLogado">
+    <ion-header>
+        <ion-toolbar>
+            <ion-title>
+                Menu
+            </ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+        <ion-list>
+            <button ion-item menuClose *ngFor="let pagina of paginas" (click)="irParaPagina(pagina.pagina)">
+                <ion-icon [name]="pagina.icone" item-left></ion-icon>
+                {{pagina.titulo}}
+            </button>
+            <button ion-button full icon-start menuClose color="primary" clear (click)="signOut()">
+                <ion-icon name="log-out"></ion-icon> Sair
+            </button>
+        </ion-list>
 
+    </ion-content>
 </ion-menu>
 <ion-nav id="nav" [root]="rootPage" #conteudo swipeBackEnabled="false"></ion-nav>

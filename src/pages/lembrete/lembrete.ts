@@ -19,33 +19,34 @@ export class LembretePage {
   items: Observable<Lembrete[]>;
   private itemsCollection: AngularFirestoreCollection<Lembrete>;
 
-  adubacao: Observable<Lembrete>;// = {atividade:'A', qtdDiasAviso:null};
-  pulverizacao: Observable<Lembrete>; //= {atividade:'P', qtdDiasAviso:null}
+  adubacao: Lembrete = {atividade:'A', qtdDiasAviso:null};
+  pulverizacao: Lembrete= {atividade:'P', qtdDiasAviso:null};
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private afs: AngularFirestore,
     private authService: AuthService) {
 
-
-
-
       authService.getUser().subscribe(
         user => {
-          this.adubacao = this.afs.collection(user.email).doc("entrys").collection("lembrete").doc<Lembrete>("adubacao").valueChanges();
+          if(user != null) {
+            this.afs.collection(user.email).doc("entrys")
+            .collection("lembrete").doc<Lembrete>("adubacao").valueChanges().subscribe(value => this.adubacao = value);
 
-          this.pulverizacao = this.afs.collection(user.email).doc("entrys").collection("lembrete").doc<Lembrete>("pulverizacao").valueChanges();
-         
+            this.afs.collection(user.email).doc("entrys")
+            .collection("lembrete").doc<Lembrete>("pulverizacao").valueChanges().subscribe(value => this.pulverizacao = value);
+          
 
-          this.itemsCollection = this.afs.collection(user.email)
-          .doc("entrys").collection<Lembrete>("lembrete", ref => ref.orderBy('atividade', 'desc'));
+            this.itemsCollection = this.afs.collection(user.email)
+            .doc("entrys").collection<Lembrete>("lembrete", ref => ref.orderBy('atividade', 'desc'));
 
-          this.items = this.itemsCollection.snapshotChanges().pipe(
-            map(changes => changes.map(a => {
-              const data = a.payload.doc.data() as Lembrete;
-              data.id = a.payload.doc.id;              
-              return data;
-            })
-          )); 
+            this.items = this.itemsCollection.snapshotChanges().pipe(
+              map(changes => changes.map(a => {
+                const data = a.payload.doc.data() as Lembrete;
+                data.id = a.payload.doc.id;              
+                return data;
+              })
+            )); 
+          }
       });
   }
 
@@ -72,22 +73,12 @@ export class LembretePage {
 
   salvar() {
     if (this.form.form.valid) {
-
-
+     
       this.authService.getUser().subscribe(
         user => {
-
-          this.adubacao.subscribe(value => {            
-            this.afs.collection(user.email).doc("entrys").collection<Lembrete>("lembrete").doc("adubacao").set(value);
-          })
-
-          this.pulverizacao.subscribe(value => {            
-            this.afs.collection(user.email).doc("entrys").collection<Lembrete>("lembrete").doc("pulverizacao").set(value);
-          })
-
+          this.afs.collection(user.email).doc("entrys").collection<Lembrete>("lembrete").doc("adubacao").set(this.adubacao);
+          this.afs.collection(user.email).doc("entrys").collection<Lembrete>("lembrete").doc("pulverizacao").set(this.pulverizacao);
       });
-
-
 
     }
   }

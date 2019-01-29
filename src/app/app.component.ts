@@ -66,13 +66,17 @@ export class MyApp {
     this.nav.push(pagina);
   }
 
-  public signOut() {
+  public signOut() {    
     this.authService.signOut()
       .then(() => {
-        this.rootPage = SigninPage;
+        this.rootPage = SigninWithEmailPage;
         //this.navCtrl.parent.parent.setRoot(SigninPage);
       }).catch((error) => {
         console.error(error);
       });
+  }
+
+  get usuarioLogado() {
+    return this.rootPage != SigninWithEmailPage;
   }
 }

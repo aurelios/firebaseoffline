@@ -8,23 +8,19 @@
       <form #form="ngForm" novalidate>
       <ion-list>
           <ion-item >    
-            Lembrar próxima <b>Adubação</b> em  
-            <input type="number" style="width:70px" [value]="(adubacao | async)?.qtdDiasAviso" name="qtdDiasAviso" placeholder="Qtd. Dias" />
-            dias.   
+            Lembrar próxima <b>Adubação</b> em <br>
+            <input type="number" style="width:70px; margin-left: 25px;"  [(ngModel)]="adubacao.qtdDiasAviso" name="qtdDiasAviso" placeholder="Qtd. Dias" />
+            dias.
           </ion-item>     
           <ion-item >
-              Lembrar próxima <b>Pulverização</b> em  
-              <input type="number" style="width:70px" [value]="(pulverizacao | async)?.qtdDiasAviso" name="qtdDiasAviso" placeholder="Qtd. Dias" />
+              Lembrar próxima <b>Pulverização</b> em <br>
+              <input type="number" style="width:70px;margin-left: 25px;" [(ngModel)]="pulverizacao.qtdDiasAviso" name="qtdDiasAviso" placeholder="Qtd. Dias" />
               dias.               
            </ion-item>   
         </ion-list>
         <button ion-button full icon-start (click)="salvar()"><ion-icon name="archive"></ion-icon>Salvar</button>
-
-   
-
-
-  
-      <ion-list>
+    
+      <!--<ion-list>
         <ion-item *ngFor="let item of items | async">
           <h2>{{ item.atividade == 'A' ? 'Adubação' : 'Pulverização' }} </h2>
           <p>Alertar em {{item.qtdDiasAviso}} dias</p>
@@ -35,12 +31,11 @@
             <ion-icon name="trash" ></ion-icon>
           </button>
         </ion-item>     
-      </ion-list>
-  
+      </ion-list>  
   
       <ion-fab bottom center>
           <button ion-fab (click)="openNewItem()"><ion-icon name="add"></ion-icon></button>
-      </ion-fab>
+      </ion-fab>-->
 
       </form>
 

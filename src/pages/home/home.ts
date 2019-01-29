@@ -14,21 +14,28 @@ import { Home } from './home.model';
 })
 export class HomePage {
   adubacoes: Observable<Atividade[]>;
-  lembreteAdubacao:  Lembrete;
+  pulverizacoes: Observable<Atividade[]>;
+  lembreteAdubacao: Lembrete;
+  lembretePulverizacao: Lembrete;
   adubacao:  Atividade;
-  pulverizacao: Observable<Atividade[]>;
+  pulverizacao:  Atividade;
 
   homeItems: Home[] = [];
 
   constructor(public navCtrl: NavController,
     private afs: AngularFirestore,
     private authService: AuthService) {
+
+
+
     
-    authService.getUser().subscribe(
+    /*authService.getUser().subscribe(
       user => {
 
-          const item = new Home();
+        const item = new Home();
+        const item2 = new Home();
         if(user != null){
+          
           afs.collection(user.email)
           .doc("entrys").collection("lembrete", ref => ref.where('atividade', '==', 'A')).snapshotChanges().pipe(
             map(changes => changes.map(a => {
@@ -57,10 +64,44 @@ export class HomePage {
             item.dtProxAtividade =  date.toISOString() ;
           });
 
+
+          afs.collection(user.email)
+          .doc("entrys").collection("lembrete", ref => ref.where('atividade', '==', 'P')).snapshotChanges().pipe(
+            map(changes => changes.map(a => {
+              const data = a.payload.doc.data() as Lembrete;
+              data.id = a.payload.doc.id;
+              return data;
+            }))).subscribe(ref => {this.lembretePulverizacao = ref[0]; item2.atividade = 'P' ; item2.qtdDiasProxAtividade = ref[0].qtdDiasAviso });         
+
+
+          this.pulverizacoes = this.afs.collection(user.email)
+          .doc("entrys").collection<Atividade>("atividades", ref => ref.where('atividade', '==', 'P').
+            orderBy('data', 'desc').
+            limit(1))
+          .snapshotChanges().pipe(
+            map(changes => changes.map(a => {
+              const data = a.payload.doc.data() as Atividade;
+              data.id = a.payload.doc.id;
+              return data;
+            })));  
+
+          this.pulverizacoes.subscribe(ref => { 
+            this.pulverizacao = ref[0]; 
+            item2.dtUltAtividade = ref[0].data ; 
+            const date = new Date(ref[0].data);
+            date.setDate(date.getDate() + parseInt(item2.qtdDiasProxAtividade.toString()));
+            item2.dtProxAtividade =  date.toISOString() ;
+          });
+
+
+
+          
+
           this.homeItems.push(item);
+          this.homeItems.push(item2);
         }
     
-      });
+      });*/
 
     
 
@@ -77,8 +118,53 @@ export class HomePage {
   
   }
 
+  buscaItemHome(dsAtividade: string){
+    let item = new Home();
+    let lembrete: Lembrete;
+    let atividade: Atividade;
+    this.authService.getUser().subscribe(
+      user => {
+        if(user != null) {
+          this.afs.collection(user.email)
+          .doc("entrys").collection("lembrete", ref => ref.where('atividade', '==', dsAtividade))
+          .snapshotChanges().pipe(
+            map(changes => changes.map(a => {
+              const data = a.payload.doc.data() as Lembrete;
+              data.id = a.payload.doc.id;
+              return data;
+            })))
+            .subscribe(ref => {
+              lembrete = ref[0]; 
+              item.atividade = dsAtividade;
+              item.qtdDiasProxAtividade = lembrete.qtdDiasAviso 
+            });         
+      
+      
+          this.afs.collection(user.email)
+          .doc("entrys").collection<Atividade>("atividades", ref => ref.where('atividade', '==', dsAtividade).
+            orderBy('data', 'desc').
+            limit(1))
+          .snapshotChanges().pipe(
+            map(changes => changes.map(a => {
+              const data = a.payload.doc.data() as Atividade;
+              data.id = a.payload.doc.id;
+              return data;
+            }))).subscribe(ref => { 
+              atividade = ref[0]; 
+              item.dtUltAtividade = atividade.data ; 
+              const date = new Date(atividade.data);
+              date.setDate(date.getDate() + parseInt(item.qtdDiasProxAtividade.toString()));
+              item.dtProxAtividade =  date.toISOString() ;
+          });
+        }
+    });
+    return item;
+  }
+
+
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
+    this.homeItems.push(this.buscaItemHome('A'));
+    this.homeItems.push(this.buscaItemHome('P'));
   }
 
 }
