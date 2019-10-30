@@ -11,28 +11,45 @@
 
 <ion-content padding>
 
-    <ion-card *ngFor="let item of homeItems">       
-        <ion-card-header text-center bold>               
-           {{item.atividade == 'A' ? 'Adubação' : 'Pulverização'}}         
+    <ion-card *ngFor="let item of homeItems">      
+        <ion-card-header>               
+           <b>{{item.atividade == 'A' ? 'Adubação' : 'Pulverização'}}</b>
         </ion-card-header>
         <ion-list class="list-ios">
-            <ion-item>
-                <ion-card-content>
-                    <ion-row>
-                        <ion-col center text-center>               
-                            <h6>Última</h6>
-                            <h2 style="color: #666;"> {{ item?.dtUltAtividade | date : "dd/MM/yyyy" }}</h2>                  
-                        </ion-col>
-                        <ion-col center text-center>                  
-                            <h6>Próxima</h6>
-                            <h2 style="color: #666;">{{ item?.dtProxAtividade  | date : "dd/MM/yyyy"  }}</h2>                  
-                        </ion-col>
-                        </ion-row>
+            <ion-item >
+              <!--<ion-card-content>
+              Sua última {{item.atividade == 'A' ? 'Adubação' : 'Pulverização'}} foi {{ item?.dtUltAtividade | date : "d, MMM" }}, a próxima deverá ser em {{ item?.dtProxAtividade }}.
+              </ion-card-content>
+              !-->
+                <ion-card-content style="padding:0px 0px;" >
+                  <ion-row *ngIf="item.dtUltAtividade">
+                    <ion-col center text-center>               
+                      <h3><b>Última</b></h3>
+                      <h6 style="color: #666;"> {{ item?.dtUltAtividade | date : "d, MMM" }}</h6>
+                    </ion-col>
+                    <ion-col center text-center>                  
+                      <h3><b>Próxima</b></h3>
+                      <h3 style="color: #666;">{{ item?.dtProxAtividade  | date : "d, MMM"  }}</h3>                          
+                      <ion-row *ngIf="item.isToday == -1" style="align-items: center; justify-content: center;">
+                        <ion-icon  style="font-size:2rem; color: red; margin-top: 0px;margin-bottom: 0px;" item-left name="md-alert"></ion-icon> 
+                        <h3 style="font-size:1.1rem;font-weight: 500;" > Está {{item?.qtdDiasFaltamAtividade}} dia(s) atrasado. </h3>                             
+                      </ion-row>
+                      <ion-row *ngIf="item.isToday != -1" style="align-items: center; justify-content: center;">
+                        <ion-icon style="font-size:2rem; color: green; margin-top: 0px;margin-bottom: 0px;" item-left name="md-alert"></ion-icon>                               
+                        <h3 *ngIf="item.isToday == 1" style="font-size:1.1rem;font-weight: 500;" > Falta(m) {{item?.qtdDiasFaltamAtividade}} dia(s). </h3>
+                        <h3 *ngIf="item.isToday == 0" style="font-size:1.1rem;font-weight: 500;" > É Hoje !!! </h3>                        
+                      </ion-row>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row *ngIf="!item.dtUltAtividade">
+                      <h6> Ainda não cadastrado. </h6>                              
+                  </ion-row>
                 </ion-card-content>
             </ion-item>
         </ion-list>
     </ion-card>
 
+   
 
   <!-- <ion-item icon-right *ngFor="let item of pulverizacao | async">
     <ion-card>
@@ -44,4 +61,20 @@
         </ion-card-content>
       </ion-card>
   </ion-item>-->
+
+  <div class="timeline">
+      <div class="container left">
+        <div class="content">
+          <h2>2017</h2>
+          <p>Lorem ipsum..</p>
+        </div>
+      </div>
+      <div class="container right">
+        <div class="content">
+          <h2>2016</h2>
+          <p>Lorem ipsum..</p>
+        </div>
+      </div>
+    </div>
 </ion-content>
+

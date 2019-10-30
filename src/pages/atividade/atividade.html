@@ -41,7 +41,7 @@
   <ion-list>
     
       <!--<ion-item-divider color="light">A</ion-item-divider>!-->
-      <ion-item icon-right *ngFor="let item of items | async">
+      <ion-item icon-right *ngFor="let item of items | async" (click)="carregaItem(item);">
         
         <h2>{{ item.data | date  }}</h2>
         <p>{{ item.atividade == 'A' ? 'Adubação' : 'Pulverização' }} | {{ item.descricao }}</p>

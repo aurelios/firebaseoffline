@@ -151,10 +151,25 @@ export class HomePage {
               return data;
             }))).subscribe(ref => { 
               atividade = ref[0]; 
-              item.dtUltAtividade = atividade.data ; 
-              const date = new Date(atividade.data);
-              date.setDate(date.getDate() + parseInt(item.qtdDiasProxAtividade.toString()));
-              item.dtProxAtividade =  date.toISOString() ;
+              if(atividade != undefined){
+                item.dtUltAtividade = atividade.data ; 
+                const dateProxAtividade = new Date(atividade.data);
+                const dataHoje = new Date();
+                dataHoje.setHours(0,0,0,0);
+                dateProxAtividade.setDate(dateProxAtividade.getDate() + parseInt(item.qtdDiasProxAtividade.toString()));
+                dateProxAtividade.setHours(0,0,0,0);
+                item.dtProxAtividade =  dateProxAtividade.toISOString() ;
+
+                var diffc = dateProxAtividade.getTime() - dataHoje.getTime();
+                item.qtdDiasFaltamAtividade = Math.round(Math.abs(diffc/(1000*60*60*24)));
+                if(dateProxAtividade.getTime() < dataHoje.getTime()){
+                  item.isToday = -1;
+                } else if(dateProxAtividade.getTime() > dataHoje.getTime()){
+                  item.isToday = 1;
+                } else {
+                  item.isToday = 0;
+                }
+              }
           });
         }
     });
@@ -163,6 +178,12 @@ export class HomePage {
 
 
   ionViewDidLoad() {
+    //this.homeItems.push(this.buscaItemHome('A'));
+    //this.homeItems.push(this.buscaItemHome('P'));
+  }
+
+  ionViewDidEnter(){
+    this.homeItems = [];
     this.homeItems.push(this.buscaItemHome('A'));
     this.homeItems.push(this.buscaItemHome('P'));
   }

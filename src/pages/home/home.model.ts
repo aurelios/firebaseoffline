@@ -4,5 +4,7 @@ export class Home {
     dtUltAtividade : string;
     qtdDiasProxAtividade: Number;
     dtProxAtividade: string;
+    qtdDiasFaltamAtividade: Number;
+    isToday: Number;
 
 }
