@@ -10,7 +10,6 @@ import { HomePage } from '../pages/home/home';
 import { SigninWithEmailPage } from '../pages/signinwithemail/signinwithemail';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { LembretePage } from '../pages/lembrete/lembrete';
-import { SigninPage } from '../pages/signin/signin';
 import { AuthService } from '../providers/auth/auth-service';
 
 @Component({
@@ -41,7 +40,7 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
-      splashScreen.hide();
+      //splashScreen.hide();
 
       this._oneSignal.startInit("6dca3a43-0b27-4f2b-a4fc-20678efe4386","720900542322");
       this._oneSignal.inFocusDisplaying(this._oneSignal.OSInFocusDisplayOption.Notification);

@@ -23,6 +23,11 @@ export class SigninWithEmailPage {
     private toastCtrl: ToastController,
     private authService: AuthService
     ) {
+      
+  }
+
+  ionViewDidEnter(){
+    this.user = new User();
   }
 
   resetPassword() {

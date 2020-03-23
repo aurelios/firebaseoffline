@@ -1,11 +1,12 @@
 <ion-header>
-
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
+  <ion-toolbar color="primary"> 
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Home</ion-title>
+    </ion-navbar>
+  </ion-toolbar>
 
 </ion-header>
 
@@ -29,17 +30,17 @@
                     </ion-col>
                     <ion-col center text-center>                  
                       <h3><b>Próxima</b></h3>
-                      <h3 style="color: #666;">{{ item?.dtProxAtividade  | date : "d, MMM"  }}</h3>                          
-                      <ion-row *ngIf="item.isToday == -1" style="align-items: center; justify-content: center;">
-                        <ion-icon  style="font-size:2rem; color: red; margin-top: 0px;margin-bottom: 0px;" item-left name="md-alert"></ion-icon> 
-                        <h3 style="font-size:1.1rem;font-weight: 500;" > Está {{item?.qtdDiasFaltamAtividade}} dia(s) atrasado. </h3>                             
-                      </ion-row>
-                      <ion-row *ngIf="item.isToday != -1" style="align-items: center; justify-content: center;">
-                        <ion-icon style="font-size:2rem; color: green; margin-top: 0px;margin-bottom: 0px;" item-left name="md-alert"></ion-icon>                               
-                        <h3 *ngIf="item.isToday == 1" style="font-size:1.1rem;font-weight: 500;" > Falta(m) {{item?.qtdDiasFaltamAtividade}} dia(s). </h3>
-                        <h3 *ngIf="item.isToday == 0" style="font-size:1.1rem;font-weight: 500;" > É Hoje !!! </h3>                        
-                      </ion-row>
+                      <h3 style="color: #666;">{{ item?.dtProxAtividade  | date : "d, MMM"  }}</h3>
                     </ion-col>
+                  </ion-row>
+                  <ion-row *ngIf="item.isToday == -1" style="align-items: center; justify-content: center;">
+                      <ion-icon  style="font-size:2rem; color: red; margin-top: 0px;margin-bottom: 0px;" item-left name="md-alert"></ion-icon> 
+                      <h3 style="font-size:1.1rem;font-weight: 500;" > Está {{item?.qtdDiasFaltamAtividade}} dia(s) atrasado. </h3>                             
+                  </ion-row>
+                  <ion-row *ngIf="item.isToday != -1" style="align-items: center; justify-content: center;">
+                    <ion-icon style="font-size:2rem; color: green; margin-top: 0px;margin-bottom: 0px;" item-left name="md-alert"></ion-icon>                               
+                    <h3 *ngIf="item.isToday == 1" style="font-size:1.1rem;font-weight: 500;" > Falta(m) {{item?.qtdDiasFaltamAtividade}} dia(s). </h3>
+                    <h3 *ngIf="item.isToday == 0" style="font-size:1.1rem;font-weight: 500;" > É Hoje ! </h3>                        
                   </ion-row>
                   <ion-row *ngIf="!item.dtUltAtividade">
                       <h6> Ainda não cadastrado. </h6>                              
@@ -51,7 +52,7 @@
 
    
 
-  <!-- <ion-item icon-right *ngFor="let item of pulverizacao | async">
+  <ion-item icon-right *ngFor="let item of pulverizacao | async">
     <ion-card>
         <ion-card-header>
           Header
@@ -60,21 +61,7 @@
             {{ item.data | date : "dd/MM/yyyy"}}
         </ion-card-content>
       </ion-card>
-  </ion-item>-->
+  </ion-item>
 
-  <div class="timeline">
-      <div class="container left">
-        <div class="content">
-          <h2>2017</h2>
-          <p>Lorem ipsum..</p>
-        </div>
-      </div>
-      <div class="container right">
-        <div class="content">
-          <h2>2016</h2>
-          <p>Lorem ipsum..</p>
-        </div>
-      </div>
-    </div>
 </ion-content>
 

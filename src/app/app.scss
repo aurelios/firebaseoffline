@@ -14,3 +14,9 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+ion-modal.inset-modal {
+    // transparent black background overlay
+    background-color: rgba(0, 0, 0, .5) !important;
+    transition: opacity .25s ease-in-out;
+    padding: 15vh 10vw;
+  }

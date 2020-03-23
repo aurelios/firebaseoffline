@@ -1,3 +1,21 @@
-page-home {
+page-atividade {
+
+    .innerMessage{
+        display: inline-block;
+        padding: 5px 10px;
+        background: color($colors,'primary');
+        margin: 5px;
+        color:white;
+        border-radius: 3px;
+    }
+
+    .username{
+        font-weight: bold;
+        font-size: 80%;
+    }
+
+    .message{
+        font-size: 100%;
+    }
 
 }
