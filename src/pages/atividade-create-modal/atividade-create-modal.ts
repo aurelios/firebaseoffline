@@ -37,8 +37,9 @@ export class AtividadeCreateModalPage {
   }
 
   async addItem(item: Atividade) {
-    await this.presentLoading();
+    
     if (this.form.form.valid) {
+      await this.presentLoading();
       try{
         await this.itemsCollection.add(item);
       } catch(e){}

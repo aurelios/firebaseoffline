@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { User } from './user';
-import * as firebase from 'firebase/app';
+import { first } from 'rxjs/operators';
 /*import { GooglePlus } from '@ionic-native/google-plus';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { TwitterConnect } from '@ionic-native/twitter-connect';
 */
 @Injectable()
 export class AuthService {
-
   constructor(private angularFireAuth: AngularFireAuth/*, private googlePlus: GooglePlus, private facebook: Facebook, private twitter: TwitterConnect*/) { }
 
   createUser(user: User) {
@@ -67,7 +66,7 @@ export class AuthService {
   signOut() /*: firebase.Promise<any>*/ {
     if (this.angularFireAuth.auth.currentUser.providerData.length) {
       for (var i = 0; i < this.angularFireAuth.auth.currentUser.providerData.length; i++) {
-        var provider = this.angularFireAuth.auth.currentUser.providerData[i];
+       // var provider = this.angularFireAuth.auth.currentUser.providerData[i];
 
         /*if (provider.providerId == firebase.auth.GoogleAuthProvider.PROVIDER_ID) { // Se for o gooogle
           // o disconnect limpa o oAuth token e tambem esquece qual conta foi selecionada para o login
@@ -98,6 +97,11 @@ export class AuthService {
 
   resetPassword(email: string) {
     return this.angularFireAuth.auth.sendPasswordResetEmail(email);
+  }
+
+  async getEmail(): Promise<string>{
+    const user = await this.angularFireAuth.authState.pipe(first()).toPromise();
+    return user.email;
   }
 
   getUser(){

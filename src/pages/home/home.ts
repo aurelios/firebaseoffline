@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { AngularFirestoreCollection, AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import {  AngularFirestore } from '@angular/fire/firestore';
 import { Atividade } from '../atividade/atividade.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -182,7 +182,7 @@ export class HomePage {
     //this.homeItems.push(this.buscaItemHome('P'));
   }
 
-  ionViewDidEnter(){
+  ionViewWillEnter(){
     this.homeItems = [];
     this.homeItems.push(this.buscaItemHome('A'));
     this.homeItems.push(this.buscaItemHome('P'));

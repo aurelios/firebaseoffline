@@ -5,7 +5,6 @@ import { User } from '../../providers/auth/user';
 import { AuthService } from '../../providers/auth/auth-service';
 import { ResetpasswordPage } from '../resetpassword/resetpassword';
 import { SignupPage } from '../signup/signup';
-import { AtividadePage } from '../atividade/atividade';
 import { HomePage } from '../home/home';
 
 

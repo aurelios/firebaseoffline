@@ -3,6 +3,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { Vibration } from '@ionic-native/vibration/';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -25,6 +26,11 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 import { AuthService } from '../providers/auth/auth-service';
 import { LembretePage } from '../pages/lembrete/lembrete';
 import { LembreteCreatePage } from '../pages/lembrete-create/lembrete-create';
+import { LinhasdeplantioCreatePage } from '../pages/linhasdeplantio-create/linhasdeplantio-create';
+import { LinhasdeplantioSelecaoPage } from '../pages/linhasdeplantio-selecao/linhasdeplantio-selecao';
+import { FrutosPorLinhaSelecaoPage } from '../pages/frutosporlinha-selecao/frutosporlinha-selecao';
+import { FrutosPorLinhaCreatePage } from '../pages/frutosporlinha-create/frutosporlinha-create';
+import { FrutosPorPosteCreatePage } from '../pages/frutosporposte-create/frutosporposte-create';
 
 
 
@@ -38,8 +44,12 @@ import { LembreteCreatePage } from '../pages/lembrete-create/lembrete-create';
     ResetpasswordPage,
     HomePage,
     LembretePage,
-    LembreteCreatePage
-
+    LembreteCreatePage,
+    LinhasdeplantioSelecaoPage,
+    LinhasdeplantioCreatePage,    
+    FrutosPorLinhaSelecaoPage,
+    FrutosPorLinhaCreatePage,
+    FrutosPorPosteCreatePage
   ],
   imports: [
     BrowserModule,    
@@ -61,7 +71,13 @@ import { LembreteCreatePage } from '../pages/lembrete-create/lembrete-create';
     ResetpasswordPage,
     HomePage,
     LembretePage,
-    LembreteCreatePage
+    LembreteCreatePage,
+    LinhasdeplantioSelecaoPage,
+    LinhasdeplantioCreatePage,    
+    FrutosPorLinhaSelecaoPage,
+    FrutosPorLinhaCreatePage,
+    FrutosPorPosteCreatePage
+
   ],
   providers: [
     StatusBar,
@@ -69,7 +85,8 @@ import { LembreteCreatePage } from '../pages/lembrete-create/lembrete-create';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthService,
     OneSignal,
-    LocalNotifications
+    LocalNotifications,
+    Vibration
   ]
 })
 export class AppModule {}

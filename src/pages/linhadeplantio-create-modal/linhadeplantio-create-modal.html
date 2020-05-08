@@ -1,0 +1,41 @@
+<!--<ion-header>
+  <ion-toolbar color="primary">
+      <ion-title>Linha de Plantio</ion-title>    
+    </ion-toolbar>
+</ion-header>
+!-->
+
+
+
+
+<ion-content class="alert-md">
+  
+  <div class="alert-head"><h2 class="alert-title" id="alert-hdr-0">Insira a data</h2></div>
+
+  <!--<div class="alert-message" id="alert-msg-0">Do you agree to use this lightsaber to do good across the intergalactic galaxy?</div>!-->
+  
+  <form #form="ngForm" novalidate>
+    <ion-list>
+      <ion-item>
+        <ion-label color="primary">Data</ion-label>
+        <ion-datetime text-center displayFormat="DD, MMM, YYYY" format pickerFormat="DD, MMM, YYYY" [(ngModel)]="item.data" name="data" #data="ngModel" required></ion-datetime>
+      </ion-item>
+    <br/>
+      <div class="alert-button-group" ng-reflect-klass="alert-button-group">
+        <button ion-button="alert-button" (click)="addItem(item)" class="disable-hover alert-button alert-button-md alert-button-default alert-button-default-md">
+          <span class="button-inner">Ok</span>
+          <div class="button-effect"></div>
+        </button>
+      </div>    
+    </ion-list>  
+  </form>
+
+
+</ion-content>
+
+
+  
+
+
+  <!--<button ion-button full icon-start (click)="addItem(item)"><ion-icon name="archive"></ion-icon>Salvar</button>  !-->
+

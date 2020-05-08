@@ -1,0 +1,71 @@
+<!--
+  Generated template for the LinhasdeplantioSelecaoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar color="primary">     
+    <ion-navbar>
+      <ion-title>Linha de Plantio</ion-title>    
+    </ion-navbar>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding *ngIf="items">  
+  <ion-list> 
+    <ion-grid>
+      <ion-row>
+        <ion-col col-2>
+          <ion-item >
+            <ion-label  style="text-align: end;" color="primary">Rua</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col col-10>
+          <ion-item>
+            <ion-label color="primary">Variedade</ion-label>
+          </ion-item>
+        </ion-col>       
+      </ion-row>
+
+      <ion-item-sliding *ngFor="let item of items | async">
+        <ion-item > 
+          <ion-row  (click)="irPara(item)">
+            <ion-col style="text-align: end;" col-2>
+              {{ item.nroRua }}
+            </ion-col>
+            <ion-col col-10>
+              {{ item.variedade }} 
+            </ion-col>  
+          </ion-row>
+        </ion-item>       
+        
+        <ion-item-options *ngIf="pageId==null" icon-start (ionSwipe)="removeItem(item)">
+          <button color="danger" ion-button expandable (click)="removeItem(item)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+
+
+      <ion-row *ngIf="!(items | async)?.length">
+        <ion-col col-12>
+          <ion-item style="text-align: center;"> 
+            Nenhum resultado a ser exibido
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+
+
+    </ion-grid>
+  </ion-list>
+
+ 
+  <ion-fab bottom right *ngIf="pageId == null" >
+    <button ion-fab icon-only block color="primary"  (click)="openCreate()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>

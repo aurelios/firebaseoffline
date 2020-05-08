@@ -3,7 +3,6 @@ import { IonicPage, NavController, ToastController } from 'ionic-angular';
 import { NgForm } from '@angular/forms';
 import { User } from '../../providers/auth/user';
 import { AuthService } from '../../providers/auth/auth-service';
-import { AtividadePage } from '../atividade/atividade';
 import { SignupPage } from '../signup/signup';
 import { SigninWithEmailPage } from '../signinwithemail/signinwithemail';
 
@@ -17,9 +16,7 @@ export class SigninPage {
   @ViewChild('form') form: NgForm;
 
   constructor(
-    public navCtrl: NavController,
-    private toastCtrl: ToastController,
-    private authService: AuthService) {
+    public navCtrl: NavController) {
   }
 
   createAccount() {

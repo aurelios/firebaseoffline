@@ -1,0 +1,57 @@
+linhadeplantio-create-modal {
+  
+  .alert-button {
+    text-align: right;
+    text-align: end;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #488aff;
+    background-color: transparent;
+    margin: 0 8px 0 0;
+    padding: 10px;
+}
+
+.alert-md .alert-head {
+  text-align: left;
+  text-align: start;
+  padding: 24px 24px 20px;
+}
+
+.alert-md .alert-message {
+  max-height: 240px;
+  font-size: 15px;
+}
+.alert-md .alert-message, .alert-md .alert-input-group {
+  color: rgba(0, 0, 0, 0.5);
+  padding: 0 24px 24px;
+}
+
+.alert-md .alert-button-group {
+  -webkit-flex-wrap: wrap-reverse;
+  -ms-flex-wrap: wrap-reverse;
+  flex-wrap: wrap-reverse;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  padding: 8px 8px 8px 24px;
+}
+.alert-button-group {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+  ion-footer button {
+    margin: 0 !important;
+  }
+}

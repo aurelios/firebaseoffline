@@ -10,7 +10,7 @@
 
 </ion-header>
 
-<ion-content padding>
+<ion-content padding *ngIf="homeItems">
 
     <ion-card *ngFor="let item of homeItems">      
         <ion-card-header>               
@@ -61,7 +61,6 @@
             {{ item.data | date : "dd/MM/yyyy"}}
         </ion-card-content>
       </ion-card>
-  </ion-item>
-
+  </ion-item>   
 </ion-content>
 

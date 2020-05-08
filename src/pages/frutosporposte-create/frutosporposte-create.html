@@ -1,0 +1,54 @@
+<!--
+  Generated template for the FrutosporlinhaCreatePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar color="primary">     
+    <ion-navbar>
+     <ion-title>Rua {{linhadeplantio.nroRua}}, Poste {{item.nrPoste}} </ion-title>
+    </ion-navbar>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="page-frutosporposte-create" >
+  <ion-item>
+    <button ion-button item-start color="primary" icon-left (click)="ruaAnterior()">
+      <ion-icon name='arrow-back'></ion-icon>
+      Rua Anterior
+    </button>
+  
+    <button ion-button outline item-end color="primary" icon-right (click)="proximaRua()">
+      Próxima Rua
+      <ion-icon name='arrow-forward'></ion-icon>
+    </button>
+    </ion-item>
+
+  <form #form="ngForm" novalidate>
+    <ion-list> 
+
+      <ion-item>
+        <ion-label stacked>Número do Poste</ion-label>
+        <ion-input type="text" disabled="true" name="nrPoste" text-right [(ngModel)]="item.nrPoste"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-card class="cardEvent"  (tap)="tap($event)" (swipe)="swipeEvent($event)">
+          <img src="assets/imgs/fruta-pitaya2.jpg"/>
+          <div class="card-title">{{item.qtdFrutos}}</div>
+          <div class="card-subtitle">Frutas</div>
+        </ion-card>
+      </ion-item>
+    </ion-list>
+  </form>
+  <button ion-button full icon-start (click)="salvar(item)"><ion-icon name="archive"></ion-icon>Salvar</button>  
+
+  <!--<button ion-button color="light" block (click)="doConfirm()">Confirm Alert</button>
+  <button ion-button color="secondary" block (click)="doPrompt()">Prompt Alert</button>!-->
+</ion-content> 
+
+<ion-footer>
+  
+</ion-footer>
