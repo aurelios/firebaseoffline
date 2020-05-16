@@ -29,7 +29,6 @@
     "@ionic-native/vibration": "^4.20.0",
     "@ionic/pro": "2.0.3",
     "@ionic/storage": "2.2.0",
-    "cordova-android": "^6.3.0",
     "cordova-browser": "~5.0.4",
     "cordova-plugin-badge": "^0.8.8",
     "cordova-plugin-device": "2.0.2",
@@ -55,8 +54,8 @@
   "description": "An Ionic project",
   "cordova": {
     "platforms": [
-      "android",
-      "browser"
+      "browser",
+      "android"
     ],
     "plugins": {
       "cordova-plugin-whitelist": {},

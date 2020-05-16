@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-toolbar color="primary"> 
+    <ion-toolbar color="danger"> 
       <ion-navbar>
         <ion-title>Lembrete</ion-title>
       </ion-navbar>  
@@ -7,20 +7,20 @@
 </ion-header>  
   
   <ion-content padding>
-      <form #form="ngForm" novalidate>
+      <form #form="ngForm">
       <ion-list>
           <ion-item >    
             Lembrar da próxima <b>Adubação</b> em <br>
-            <input type="number" style="width:70px; margin-left: 25px;"  [(ngModel)]="adubacao.qtdDiasAviso" name="qtdDiasAviso" placeholder="Qtd. Dias" />
+            <input type="number" style="width:70px; margin-left: 25px;"  [(ngModel)]="adubacao.qtdDiasAviso" name="qtdDiasAviso" #qtdDiasAvisoAdub="ngModel" placeholder="Qtd. Dias" />
             dias.
           </ion-item>     
           <ion-item >
               Lembrar da próxima <b>Pulverização</b> em <br>
-              <input type="number" style="width:70px;margin-left: 25px;" [(ngModel)]="pulverizacao.qtdDiasAviso" name="qtdDiasAviso" placeholder="Qtd. Dias" />
+              <input type="number" style="width:70px;margin-left: 25px;" [(ngModel)]="pulverizacao.qtdDiasAviso" name="qtdDiasAviso" #qtdDiasAvisoPulv="ngModel" placeholder="Qtd. Dias" />
               dias.               
            </ion-item>   
         </ion-list>
-        <button ion-button full icon-start (click)="salvar()"><ion-icon name="archive"></ion-icon>Salvar</button>
+        <button ion-button color="danger" [disabled]="!form.form.valid" full icon-start (click)="salvar()"><ion-icon name="archive"></ion-icon>Salvar</button>
     
       <!--<ion-list>
         <ion-item *ngFor="let item of items | async">

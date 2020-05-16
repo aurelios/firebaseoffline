@@ -1,16 +1,16 @@
-import { AtividadeCreateModalPage } from './atividade-create-modal';
+import { AtividadeCreatePage } from './atividade-create';
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 
 @NgModule({
   declarations: [
-    AtividadeCreateModalPage,
+    AtividadeCreatePage,
   ],
   imports: [
-    IonicPageModule.forChild(AtividadeCreateModalPage),
+    IonicPageModule.forChild(AtividadeCreatePage),
   ],
   exports: [
-    AtividadeCreateModalPage
+    AtividadeCreatePage
   ]
 })
 

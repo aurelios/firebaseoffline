@@ -9,7 +9,6 @@ import { AuthService } from '../../providers/auth/auth-service';
 import { LinhaDePlantio } from '../linhasdeplantio-create/linhadeplantio.model';
 import { Vibration } from '@ionic-native/vibration';
 import { FrutosLinhadePlantio } from '../frutosporlinha-create/frutoslinhadeplantio.model';
-import { database } from 'firebase';
 
 
 /**
@@ -27,7 +26,7 @@ import { database } from 'firebase';
 export class FrutosPorPosteCreatePage {
   @ViewChild('form') form: NgForm;
   loading: Loading;
-  items: Observable<FrutosPoste[]>;  
+  items$: Observable<FrutosPoste[]>;  
   frutosPoste: FrutosPoste[];  
   private itemsCollection: AngularFirestoreCollection<FrutosPoste>;
   private frutoslinha: FrutosLinhadePlantio;
@@ -62,17 +61,19 @@ export class FrutosPorPosteCreatePage {
         this.frutoslinha = data.frutosporlinha;
         this.geradorFrutosPorPoste();
         this.carregaFrutosPorPoste();
+        
       });
       modal.present();
-    } else {
-     
-      this.carregaFrutosPorPoste();
+    } else { 
+      this.presentLoading();
+      this.carregaFrutosPorPoste().then(sucess => this.loading.dismiss());
     }    
+    
   }
 
-  async carregaFrutosPorPoste(){
+  async carregaFrutosPorPoste():Promise<boolean>{
     this.itemsCollection = this.afs.collection(this.emailUser+'/entrys/linhadeplantio/'+this.linhadeplantio.id+'/frutosporlinha/'+this.frutoslinha.id+'/frutosporposte');
-    this.items = this.itemsCollection.snapshotChanges().pipe(
+    this.items$ = await this.itemsCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as FrutosPoste;
         const id = a.payload.doc.id;          
@@ -80,11 +81,14 @@ export class FrutosPorPosteCreatePage {
       }))
     );    
 
-    this.items.subscribe(array => {
+    await this.items$.subscribe(array => {
       this.frutosPoste = array;
-      this.item = this.buscaFrutosPorPoste(1);
-    });
-
+      if(this.item.nrPoste == 1)
+        this.item = this.buscaFrutosPorPoste(1);            
+    });   
+    
+    return true;
+    
   }
 
   async geradorFrutosPorPoste(){
@@ -94,7 +98,7 @@ export class FrutosPorPosteCreatePage {
     }
   }
 
-  ionViewWillLeave(){
+  ionViewWillLeave(){    
     this.navCtrl.getPrevious().data.linhadeplantio = this.linhadeplantio;
   }
 
@@ -112,14 +116,24 @@ export class FrutosPorPosteCreatePage {
     this.viewCtrl.dismiss();
   }
 
-  async salvar(item: FrutosPoste) {
-      this.frutoslinha.qtdFrutos = 0;   
-      this.frutosPoste.forEach(itemFrutosPoste => {
-        this.frutoslinha.qtdFrutos += itemFrutosPoste.qtdFrutos;
-        this.afs.collection(this.emailUser+'/entrys/linhadeplantio/'+this.linhadeplantio.id+'/frutosporlinha/'+this.frutoslinha.id+'/frutosporposte/').doc(itemFrutosPoste.id).update(itemFrutosPoste);
-      });      
-      this.afs.collection(this.emailUser+'/entrys/linhadeplantio/'+this.linhadeplantio.id+'/frutosporlinha/').doc(this.frutoslinha.id).update(this.frutoslinha);
-      this.navCtrl.pop();
+  async salvar(frutoposte:FrutosPoste) : Promise<boolean>{
+      let hasSaved:boolean = false;
+      let qtdFrutosTotal:number = 0;   
+      await this.frutosPoste.forEach(itemFrutosPoste => {
+        qtdFrutosTotal += itemFrutosPoste.qtdFrutos;
+        if(frutoposte.nrPoste == itemFrutosPoste.nrPoste && frutoposte.qtdFrutos != itemFrutosPoste.qtdFrutos)
+          hasSaved = true;
+          this.afs.collection(this.emailUser+'/entrys/linhadeplantio/'+this.linhadeplantio.id+'/frutosporlinha/'+this.frutoslinha.id+'/frutosporposte/').doc(itemFrutosPoste.id).update(itemFrutosPoste);
+      });
+      if(qtdFrutosTotal != this.frutoslinha.qtdFrutos) {
+        this.frutoslinha.qtdFrutos = qtdFrutosTotal;
+        hasSaved = true;
+        await this.afs.collection(this.emailUser+'/entrys/linhadeplantio/'+this.linhadeplantio.id+'/frutosporlinha/').doc(this.frutoslinha.id).update(this.frutoslinha);
+      }
+      if(hasSaved)
+        this.presentToast("Lançamento de Frutos Salvo com Sucesso.");
+      return hasSaved;      
+      //this.navCtrl.pop();
   }
 
  async processaTrocaDeRua(linha:LinhaDePlantio){
@@ -150,8 +164,9 @@ export class FrutosPorPosteCreatePage {
   });
  }
 
-  ruaAnterior(){
+  ruaAnterior(){    
     this.presentLoading();
+    this.salvar(this.item);
     this.vibration.vibrate(400);
 
     if(this.linhadeplantio.nroRua > 1){
@@ -177,8 +192,9 @@ export class FrutosPorPosteCreatePage {
     }
   }
 
-  proximaRua() {
+  proximaRua() {    
     this.presentLoading();
+    this.salvar(this.item);
     this.vibration.vibrate(400);
 
     this.afs.collection(this.emailUser).doc('entrys')
@@ -208,21 +224,25 @@ export class FrutosPorPosteCreatePage {
     return frutosPoste;    
   }
   
-  swipeEvent(e) {
-    if(e.offsetDirection == 2){//right to left 
-      if(this.item.nrPoste +1 > this.linhadeplantio.qtdPostes){
-       this.item = this.buscaFrutosPorPoste(1);
-      } else {
-        this.item = this.buscaFrutosPorPoste(this.item.nrPoste + 1);
+  async swipeEvent(e) {
+    this.presentLoading();
+    await this.salvar(this.item).then(sucess => {
+      if(e.offsetDirection == 2){//right to left
+        if(this.item.nrPoste +1 > this.linhadeplantio.qtdPostes){
+         this.item = this.buscaFrutosPorPoste(1);
+        } else {
+          this.item = this.buscaFrutosPorPoste(this.item.nrPoste + 1);
+        }
+      } else if(e.offsetDirection == 4){//left to right
+        if(this.item.nrPoste -1 == 0){
+          this.item = this.buscaFrutosPorPoste(this.linhadeplantio.qtdPostes);
+        } else {
+          this.item = this.buscaFrutosPorPoste(this.item.nrPoste + -1);
+        }
       }
-    } else if(e.offsetDirection == 4){//left to right      
+      this.loading.dismiss();
+    });
 
-      if(this.item.nrPoste -1 == 0){
-        this.item = this.buscaFrutosPorPoste(this.linhadeplantio.qtdPostes);
-      } else {
-        this.item = this.buscaFrutosPorPoste(this.item.nrPoste + -1);
-      }
-    }
     this.vibration.vibrate(200);
   }
 
@@ -230,8 +250,7 @@ export class FrutosPorPosteCreatePage {
     this.item.qtdFrutos++;
     this.vibration.vibrate(50);
   }
-
-  
+  /*
   doPrompt() {
     const alert = this.alertCtrl.create({
       title: 'Informe a data',
@@ -276,7 +295,6 @@ export class FrutosPorPosteCreatePage {
     });
 
     alert.present();
-  }
-
+  }*/
 
 }

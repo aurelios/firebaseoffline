@@ -133,4 +133,30 @@ page-home {
           left: 0%;
         }
       }
+
+
+
+
+
+      ion-card {
+        position: relative;
+        text-align: center;
+    }
+    
+    .card-title {
+        position: absolute;
+        top: 15%;
+        font-size: 2em;
+        width: 100%;
+        font-weight: bold;
+        color: #FFF;
+    }
+    
+    .card-subtitle {
+        font-size: 1em;
+        position: absolute;
+        top: 58%;
+        width: 100%;
+        color:  #FFF;
+    }
 }

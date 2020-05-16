@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController, Loading, IonicPage } from 'ionic-angular';
 import {  AngularFirestore } from '@angular/fire/firestore';
-import { Atividade } from '../atividade/atividade.model';
+import { Atividade } from '../atividade-selecao/atividade.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../../providers/auth/auth-service';
 import { Lembrete } from '../lembrete/lembrete.model';
 import { Home } from './home.model';
 
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
@@ -19,12 +20,14 @@ export class HomePage {
   lembretePulverizacao: Lembrete;
   adubacao:  Atividade;
   pulverizacao:  Atividade;
+  loading: Loading;
 
   homeItems: Home[] = [];
 
   constructor(public navCtrl: NavController,
     private afs: AngularFirestore,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private _loadingCtrl: LoadingController,) {
 
 
 
@@ -152,8 +155,8 @@ export class HomePage {
             }))).subscribe(ref => { 
               atividade = ref[0]; 
               if(atividade != undefined){
-                item.dtUltAtividade = atividade.data ; 
-                const dateProxAtividade = new Date(atividade.data);
+                item.dtUltAtividade = atividade.data.toDate().toISOString(); 
+                const dateProxAtividade = atividade.data.toDate();
                 const dataHoje = new Date();
                 dataHoje.setHours(0,0,0,0);
                 dateProxAtividade.setDate(dateProxAtividade.getDate() + parseInt(item.qtdDiasProxAtividade.toString()));
@@ -163,7 +166,7 @@ export class HomePage {
                 var diffc = dateProxAtividade.getTime() - dataHoje.getTime();
                 item.qtdDiasFaltamAtividade = Math.round(Math.abs(diffc/(1000*60*60*24)));
                 if(dateProxAtividade.getTime() < dataHoje.getTime()){
-                  item.isToday = -1;
+                item.isToday = -1; 
                 } else if(dateProxAtividade.getTime() > dataHoje.getTime()){
                   item.isToday = 1;
                 } else {
@@ -175,14 +178,16 @@ export class HomePage {
     });
     return item;
   }
-
-
+  
   ionViewDidLoad() {
     //this.homeItems.push(this.buscaItemHome('A'));
     //this.homeItems.push(this.buscaItemHome('P'));
   }
 
-  ionViewWillEnter(){
+
+
+  ionViewWillEnter(){   
+
     this.homeItems = [];
     this.homeItems.push(this.buscaItemHome('A'));
     this.homeItems.push(this.buscaItemHome('P'));

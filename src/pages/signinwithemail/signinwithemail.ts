@@ -30,11 +30,11 @@ export class SigninWithEmailPage {
   }
 
   resetPassword() {
-    this.navCtrl.push(ResetpasswordPage);
+    this.navCtrl.push('ResetpasswordPage');
   }
 
   createAccount() {
-    this.navCtrl.push(SignupPage);
+    this.navCtrl.push('SignupPage');
   }
 
   signIn() {

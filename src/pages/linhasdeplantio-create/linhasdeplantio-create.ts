@@ -72,11 +72,7 @@ export class LinhasdeplantioCreatePage {
         this.itemsCollection.doc(item.id).update(item);
         this.presentToast('Linha de Plantio Alterada com Sucesso !');
       }
-       
-      
-      this.navCtrl.pop();   
-      //await this.loading.dismiss();
-      //this.dismiss();  
+      this.navCtrl.pop();
     }
   }
 

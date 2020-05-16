@@ -20,11 +20,11 @@ export class SigninPage {
   }
 
   createAccount() {
-    this.navCtrl.push(SignupPage);
+    this.navCtrl.push('SignupPage');
   }
 
   signInWithEmailPage() {
-    this.navCtrl.push(SigninWithEmailPage);
+    this.navCtrl.push('SigninWithEmailPage');
   }
 
   /*signInWithGoogle() {

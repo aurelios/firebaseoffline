@@ -4,52 +4,23 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Vibration } from '@ionic-native/vibration/';
-
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-
 import { MyApp } from './app.component';
-import { AtividadePage } from '../pages/atividade/atividade';
-import { SigninPage } from '../pages/signin/signin';
-import { SigninWithEmailPage } from '../pages/signinwithemail/signinwithemail';
-import { SignupPage } from '../pages/signup/signup';
-import { ResetpasswordPage } from '../pages/resetpassword/resetpassword';
-import { HomePage } from '../pages/home/home';
-
 import { environment } from '../environments/environment';
 import { OneSignal } from '@ionic-native/onesignal';
 import { LocalNotifications } from '@ionic-native/local-notifications';
-
 import { AuthService } from '../providers/auth/auth-service';
-import { LembretePage } from '../pages/lembrete/lembrete';
-import { LembreteCreatePage } from '../pages/lembrete-create/lembrete-create';
-import { LinhasdeplantioCreatePage } from '../pages/linhasdeplantio-create/linhasdeplantio-create';
-import { LinhasdeplantioSelecaoPage } from '../pages/linhasdeplantio-selecao/linhasdeplantio-selecao';
-import { FrutosPorLinhaSelecaoPage } from '../pages/frutosporlinha-selecao/frutosporlinha-selecao';
-import { FrutosPorLinhaCreatePage } from '../pages/frutosporlinha-create/frutosporlinha-create';
-import { FrutosPorPosteCreatePage } from '../pages/frutosporposte-create/frutosporposte-create';
+import { ToastService } from './services/toast.service';
 
 
 
 @NgModule({
   declarations: [
-    MyApp,
-    AtividadePage,
-    SigninPage,
-    SigninWithEmailPage,
-    SignupPage,
-    ResetpasswordPage,
-    HomePage,
-    LembretePage,
-    LembreteCreatePage,
-    LinhasdeplantioSelecaoPage,
-    LinhasdeplantioCreatePage,    
-    FrutosPorLinhaSelecaoPage,
-    FrutosPorLinhaCreatePage,
-    FrutosPorPosteCreatePage
+    MyApp
   ],
   imports: [
     BrowserModule,    
@@ -63,21 +34,7 @@ import { FrutosPorPosteCreatePage } from '../pages/frutosporposte-create/frutosp
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    AtividadePage,
-    SigninPage,
-    SigninWithEmailPage,
-    SignupPage,
-    ResetpasswordPage,
-    HomePage,
-    LembretePage,
-    LembreteCreatePage,
-    LinhasdeplantioSelecaoPage,
-    LinhasdeplantioCreatePage,    
-    FrutosPorLinhaSelecaoPage,
-    FrutosPorLinhaCreatePage,
-    FrutosPorPosteCreatePage
-
+    MyApp
   ],
   providers: [
     StatusBar,
@@ -86,7 +43,8 @@ import { FrutosPorPosteCreatePage } from '../pages/frutosporposte-create/frutosp
     AuthService,
     OneSignal,
     LocalNotifications,
-    Vibration
+    Vibration,
+    ToastService
   ]
 })
 export class AppModule {}

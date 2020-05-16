@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Loading, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Loading, LoadingController, ToastController, AlertController } from 'ionic-angular';
 import { FrutosLinhadePlantio } from '../frutosporlinha-create/frutoslinhadeplantio.model';
 import { Observable } from 'rxjs';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from '../../providers/auth/auth-service';
 import { map } from 'rxjs/operators';
-import { FrutosPorLinhaCreatePage } from '../frutosporlinha-create/frutosporlinha-create';
 import { LinhaDePlantio } from '../linhasdeplantio-create/linhadeplantio.model';
-import { FrutosPorPosteCreatePage } from '../frutosporposte-create/frutosporposte-create';
 
 /**
  * Generated class for the FrutosporlinhaSelecaoPage page.
@@ -33,7 +31,9 @@ export class FrutosPorLinhaSelecaoPage {
     private navParams: NavParams,    
     private authService: AuthService,
     private afs: AngularFirestore,
-    private _loadingCtrl: LoadingController) {
+    private _loadingCtrl: LoadingController,
+    public toastCtrl: ToastController,
+    public alertCtrl: AlertController,) {
       this.linhadeplantio = navParams.get("linhadeplantio");
       this.pageId = navParams.get("pageId");
       this.authService.getEmail().then( value => this.emailUser = value);
@@ -45,9 +45,9 @@ export class FrutosPorLinhaSelecaoPage {
 
   openCreate() {
     if(this.pageId == "frutosporposte"){
-      this.navCtrl.push(FrutosPorPosteCreatePage,{"linhadeplantio":this.linhadeplantio, "callback":this.myCallbackFunction});
+      this.navCtrl.push('FrutosPorPosteCreatePage',{"linhadeplantio":this.linhadeplantio, "callback":this.myCallbackFunction});
     } else {
-      this.navCtrl.push(FrutosPorLinhaCreatePage,{"linhadeplantio":this.linhadeplantio, "callback":this.myCallbackFunction});
+      this.navCtrl.push('FrutosPorLinhaCreatePage',{"linhadeplantio":this.linhadeplantio, "callback":this.myCallbackFunction});
     }
   }
 
@@ -82,13 +82,36 @@ export class FrutosPorLinhaSelecaoPage {
 
   irPara(item: FrutosLinhadePlantio){    
     if(this.pageId == "frutosporposte"){
-      this.navCtrl.push(FrutosPorPosteCreatePage,{"linhadeplantio":this.linhadeplantio,"frutoslinhadeplantio":item, "callback":this.myCallbackFunction});
+      this.navCtrl.push('FrutosPorPosteCreatePage',{"linhadeplantio":this.linhadeplantio,"frutoslinhadeplantio":item, "callback":this.myCallbackFunction});
     } else {
-      this.navCtrl.push(FrutosPorLinhaCreatePage, {"linhadeplantio":this.linhadeplantio,"frutoslinhadeplantio":item, "callback":this.myCallbackFunction}); 
+      this.navCtrl.push('FrutosPorLinhaCreatePage', {"linhadeplantio":this.linhadeplantio,"frutoslinhadeplantio":item, "callback":this.myCallbackFunction}); 
     }       
   }
 
   removeItem(item: FrutosLinhadePlantio) {
-    this.itemsCollection.doc(item.id).delete();
+    
+    const alert = this.alertCtrl.create({
+      title: 'Exclusão de Registro',
+      message: 'Você tem certeza que deseja excluir o Lançamento de Frutos do dia '+item.data+' ?',
+      buttons: [
+        {
+          text: 'Cancelar',         
+        },
+        {
+          text: 'Sim',
+          handler: () => {
+            this.itemsCollection.doc(item.id).delete().then(data => this.presentToast('Lançamento de Frutos Removida !'));            
+            
+          }
+        }
+      ]
+    });
+
+    alert.present();  
+  }
+
+  async presentToast(message: string){
+    const toast = await this.toastCtrl.create({message, duration:2000})
+    toast.present();
   }
 }

@@ -5,8 +5,6 @@ import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/fire
 import { AuthService } from '../../providers/auth/auth-service';
 import { LinhaDePlantio } from '../linhasdeplantio-create/linhadeplantio.model';
 import { map } from 'rxjs/operators';
-import { LinhasdeplantioCreatePage } from '../linhasdeplantio-create/linhasdeplantio-create';
-import { FrutosPorLinhaSelecaoPage } from '../frutosporlinha-selecao/frutosporlinha-selecao';
 
 /**
  * Generated class for the LinhasdeplantioSelecaoPage page.
@@ -36,7 +34,7 @@ export class LinhasdeplantioSelecaoPage {
       this.pageId = navParams.get('pageId');
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     let loading = this._loadingCtrl.create({
       content: 'Carregando...'
     });
@@ -88,8 +86,7 @@ export class LinhasdeplantioSelecaoPage {
   }
 
   openCreate() {
-    this.navCtrl.push(LinhasdeplantioCreatePage);
-    //this.modalCtrl.create('AtividadeCreateModalPage', null, { cssClass: 'inset-modal' }).present();
+    this.navCtrl.push('LinhasdeplantioCreatePage');    
   }
 
   openEdit(){
@@ -98,9 +95,9 @@ export class LinhasdeplantioSelecaoPage {
 
   irPara(item: LinhaDePlantio){
     if(this.pageId == "frutosporlinha" || this.pageId == "frutosporposte"){
-      this.navCtrl.push(FrutosPorLinhaSelecaoPage, {"linhadeplantio":item, "pageId":this.pageId});
+      this.navCtrl.push('FrutosPorLinhaSelecaoPage', {"linhadeplantio":item, "pageId":this.pageId});
     } else {
-      this.navCtrl.push(LinhasdeplantioCreatePage, {"linhadeplantio":item});
+      this.navCtrl.push('LinhasdeplantioCreatePage', {"linhadeplantio":item});
     }
   }
 

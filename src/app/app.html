@@ -1,6 +1,6 @@
 <ion-menu [content]="conteudo" *ngIf="usuarioLogado">
     <ion-header>
-        <ion-toolbar color="primary">
+        <ion-toolbar color="danger">
             <ion-title>
                 Menu
             </ion-title>
@@ -12,7 +12,7 @@
                 <ion-icon [name]="pagina.icone" item-left></ion-icon>
                 {{pagina.titulo}}
             </button>
-            <button ion-button full icon-start menuClose color="primary" clear (click)="signOut()">
+            <button ion-button full icon-start menuClose color="danger" clear (click)="signOut()">
                 <ion-icon name="log-out"></ion-icon> Sair
             </button>
         </ion-list>

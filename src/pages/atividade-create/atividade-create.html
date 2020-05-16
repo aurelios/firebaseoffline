@@ -1,6 +1,14 @@
 <ion-header>
-  <ion-toolbar color="primary">
-      <ion-title>Nova Atividade</ion-title>    
+    <ion-toolbar color="danger"> 
+      <ion-buttons start>
+        <!--<button ion-button icon-only block (click)="openAtividadeCreateModal()">
+          <ion-icon name="add"></ion-icon>
+        </button>!-->
+      </ion-buttons>
+
+      <ion-navbar>
+        <ion-title>Nova Atividade</ion-title>    
+      </ion-navbar>
     </ion-toolbar>
 </ion-header>
 
@@ -16,7 +24,7 @@
       </ion-item>
       <ion-item>
         <ion-label>Data</ion-label>
-        <ion-datetime text-center displayFormat="DD, MMM, YYYY" format pickerFormat="DD, MMM, YYYY" [(ngModel)]="item.data" name="data" #data="ngModel" required></ion-datetime>
+        <ion-datetime text-center displayFormat="DD, MMM, YYYY" format pickerFormat="DD, MMM, YYYY" [(ngModel)]="item.dataAux" name="dataAux" #dataAux="ngModel" required></ion-datetime>
       </ion-item>   
       <ion-item>
         <ion-label fixed>Descrição</ion-label>
@@ -27,9 +35,9 @@
       </ion-item>
     </ion-list>  
   </form>
+  <button ion-button color="danger" [disabled]="!form.form.valid" full icon-start (click)="addItem(item)"><ion-icon name="archive"></ion-icon>Salvar</button>  
 </ion-content>
 
 <ion-footer>
-  <button ion-button full color="danger" (click)="dismiss()">Cancelar</button>
-  <button ion-button full icon-start (click)="addItem(item)"><ion-icon name="archive"></ion-icon>Salvar</button>  
+  
 </ion-footer>

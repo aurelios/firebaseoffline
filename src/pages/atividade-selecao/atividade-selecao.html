@@ -1,0 +1,43 @@
+<ion-header>
+    <ion-toolbar color="danger"> 
+        <ion-buttons start>
+          <!--<button ion-button icon-only block (click)="openAtividadeCreateModal()">
+            <ion-icon name="add"></ion-icon>
+          </button>!-->
+        </ion-buttons>
+
+        <ion-navbar>
+          <ion-title>Atividades</ion-title>    
+        </ion-navbar>
+      </ion-toolbar>
+</ion-header>
+
+<ion-content padding>  
+<ion-list> 
+  <ion-item-sliding *ngFor="let item of items | async">
+    <ion-item icon-right (click)="irPara(item)"> 
+      <ion-avatar item-start>
+          <img src="{{ item.atividade == 'A' ? 'assets/imgs/fertilizante.png' : 'assets/imgs/pulverizacao.png' }}">
+      </ion-avatar>         
+      <h3>{{ item.dataAux | date : "dd/MM/yyyy"  }}</h3>
+      <p>{{ item.atividade == 'A' ? 'Adubação' : 'Pulverização' }} | {{ item.descricao }}</p>
+    </ion-item>    
+    <ion-item-options icon-start (ionSwipe)="removeItem(item)">
+      <button color="danger" ion-button expandable (click)="removeItem(item)">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+    </ion-item-options>
+  </ion-item-sliding>
+  <ion-item *ngIf="!(items | async)?.length" style="text-align: center;"> 
+    Nenhum resultado a ser exibido
+  </ion-item>
+</ion-list> 
+
+ 
+  <ion-fab bottom right >
+    <button ion-fab icon-only block color="danger"  (click)="openAtividadeCreateModal()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+
+</ion-content>
